@@ -1,0 +1,87 @@
+body {
+  background: #072111;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.App {
+  margin-top: 5%;
+  text-align: center;
+}
+
+.offbutton {
+  cursor: pointer;
+}
+
+/* Auth forms */
+
+.auth-form {
+  margin: 3%;
+  padding: 6%;
+  border: 2px solid #f7f2f2;
+}
+
+.auth-form fieldset legend {
+  color: #f7f2f2;
+}
+
+.eye-icon {
+  color: black;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  margin-right: 2%;
+  padding-right: .20rem; 
+}
+
+.error-message {
+  padding: 1.5rem;
+  border-radius: 0.25rem;
+  text-align: center;
+  color: #dc3545;
+}
+
+/* Spinner.css */
+
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #f0ed3a;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Content */
+
+.content-list {
+    list-style-type: none;
+    text-align: left;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.content-list button {
+  padding: 1%;
+  margin: 1%;
+  color: #ffffff;
+  background-color: #1e383d;
+  opacity: 0.8;
+  border: none;
+  outline: none;
+  text-decoration: none;
+}
+.content-list button:hover {
+  background-color: #30776e;
+}
