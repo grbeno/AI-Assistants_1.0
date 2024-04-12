@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState, useContext} from 'react';
 import { jwtDecode } from "jwt-decode";
-import './App.css';
+import './Style/App.css';
 import {expirationTime} from './utils';
 import AuthContext from './Auth/AuthContext';
 import axiosInstance from './axios';
@@ -12,7 +12,7 @@ const App = () => {
   const {deleteUser} = useContext(AuthContext);
   
   // token
-  const token = localStorage.getItem('access_token');
+  var token = localStorage.getItem('access_token');
   const user = token ? jwtDecode(token) : '';
   const expirationTimeRefAccess = useRef(expirationTime('access_token'));
   const expirationTimeRefRefresh = useRef(expirationTime('refresh_token'));
@@ -45,6 +45,8 @@ const App = () => {
     console.log(expirationTimeRefAccess);
     console.log(expirationTimeRefRefresh);
   } , [expirationTimeRefAccess, expirationTimeRefRefresh]);
+
+  // token = true;
 
   return (
     <>

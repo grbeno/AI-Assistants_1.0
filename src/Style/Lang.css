@@ -1,0 +1,70 @@
+
+/* CSS for the Lang component */
+
+.navbar {
+  background-color: rgba(0,123,255,.25);
+}
+
+.delete {
+  cursor: pointer;
+}
+
+.answer {
+  cursor: copy;
+}
+
+input::placeholder {
+  font-style: italic;
+}
+
+.top-icon {
+  cursor: pointer;
+}
+
+/* fadein box */
+
+.fade-in-box {
+  padding: 4%;
+  margin: 1% 0% 2% 2%;
+  font-size: 18px;
+  background-color: #17592f;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;    
+}
+  
+.fade-in {
+  opacity: 1;
+}
+
+.fade-out-deleted {
+  padding: 1%;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+  
+.fade-out {
+  opacity: 0;
+}
+
+/* form */
+
+.form-select {
+  padding: 2%;
+  margin: 1%;
+  background-color: #8ac29f;
+  font-size: 18px;
+  color: '#ffffff';
+  opacity: 0.8;
+  border: none;
+  outline: none;
+  text-decoration: none;
+}
+
+textarea.form-control {
+  margin: 1% 0% 1% 1%;
+  height: 180px;
+  background-color: #8ac29f;
+  font-size: 18px;
+}
+
+   

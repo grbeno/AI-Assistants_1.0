@@ -57,16 +57,16 @@ axiosInstance.interceptors.response.use(
         if (typeof error.response === 'undefined') {
             alert(
                 'A server/network error occurred. ' + 
-                'We are working on it. Hopfully, we will solve this problem as soon as possible. '
-                //'After you click OK. The page will reload in 5 seconds.'
+                'We are working on it. Hopfully, we will solve this problem as soon as possible. ' + 
+                'After you click OK. The page will reload in 5 seconds.'
             );
             // reload after 5 seconds
-            // return new Promise((resolve, reject) => {
-            //     setTimeout(() => {
-            //         reject(error);
-            //         window.location.reload();
-            //     }, 5000);
-            // });
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    reject(error);
+                    window.location.reload();
+                }, 5000);
+            });
         }
 
         if (error.response.status === 401) {  

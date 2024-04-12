@@ -71,7 +71,6 @@ body {
     font-size: 20px;
     cursor: pointer;
 }
-
 .content-list button {
   padding: 1%;
   margin: 1%;
@@ -85,3 +84,5 @@ body {
 .content-list button:hover {
   background-color: #30776e;
 }
+
+

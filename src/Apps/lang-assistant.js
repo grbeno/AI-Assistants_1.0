@@ -1,4 +1,4 @@
-const token = localStorage.getItem('access_token');
+/* const token = localStorage.getItem('access_token');
 
 const LangAssistant = () => {
   return (
@@ -12,4 +12,246 @@ const LangAssistant = () => {
     );
 }
 
-export default LangAssistant;
+export default LangAssistant; */
+
+import React, {useEffect, useState, useRef} from 'react';
+import axiosInstance from '../axios';
+import {expirationTime, convertTimestampToDate} from '../utils';
+import '../Style/Lang.css';
+import { Icon } from 'react-icons-kit';
+import {handORight} from 'react-icons-kit/fa/handORight'
+
+
+// options for select - prompt modes
+const options = [
+    "Chat", 
+    "Translate to English",
+    "Translate to Hungarian", 
+    "Translate to German",
+    "Translate to Latin",
+    "Correct grammatical errors",
+    "Correct as if it was written by a native speaker",
+];
+
+const models = [
+    "gpt-3.5-turbo",
+    "gpt-4",
+];
+
+export default function Chat() {
+
+    // token and user
+    var token = localStorage.getItem('access_token'); 
+
+    // data
+    const [response, setResponse] = useState([]);
+    const [formData, setFormData] = useState({ prompt: '', });
+    const [selectedOption, setSelectedOption] = useState('Chat');
+    const [selectedModel, setSelectedModel] = useState('gpt-3.5-turbo'); // gpt-3.5-turbo, gpt-4
+    const [isLoading, setIsLoading] = useState(false);
+
+    const [fadeIn, setFadeIn] = useState(false);
+
+    const expirationTimeRefAccess = useRef(expirationTime('access_token'));
+    const expirationTimeRefRefresh = useRef(expirationTime('refresh_token'));
+
+    // path
+    const path =  process.env.REACT_APP_BASE_URL + '/api/chat/';
+
+    // const getAnswer = () => {
+    //     axiosInstance.get(path)
+    //     .then((res) => {
+    //         setResponse(res.data);
+    //     })  
+    //     .catch((error) => {
+    //         console.log(error);
+    //     });
+    // };
+
+    const postPrompt = (e) => {
+        setIsLoading(true); // spinner on
+        e.preventDefault();
+        axiosInstance.post(path, {
+            mode: selectedOption,
+            model: selectedModel,
+            prompt: formData.prompt,
+            answer: formData.answer
+        })
+        .then((res) => {
+            // console.log(res);
+            setFormData({ prompt: '', });
+            console.log('Selected option: ' + selectedOption);
+            setSelectedOption('Chat');
+            setResponse((response) => [...response, res.data]); 
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };
+
+    const deleteItem = (id) => {
+        axiosInstance.delete(path + id + '/')
+        .then((res) => {
+            // get answer
+            axiosInstance.get(path)
+            .then((res) => {
+                setResponse(res.data);
+            })  
+            .catch((error) => {
+                console.log(error);
+            });  
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };
+    
+    // useEffect for getting data
+    useEffect(() => {
+        // get answer
+        axiosInstance.get(path)
+        .then((res) => {
+            setResponse(res.data);
+        })  
+        .catch((error) => {
+            console.log(error);
+        });
+    }, [path]);
+
+    // useEffect for tokens
+    useEffect(() => {
+        console.log(expirationTimeRefAccess);
+        console.log(expirationTimeRefRefresh);
+    } , [expirationTimeRefAccess, expirationTimeRefRefresh]);
+
+    // useEffect for spinner
+    useEffect(() => {
+        setIsLoading(false);  // spinner off when goes to the bottom of the response list
+    }, [response]);
+
+    useEffect(() => {
+        // Trigger the fade-in effect when the component mounts
+        setFadeIn(true);
+      }, []);
+
+    // handle input
+    const handleInput = (event) => {
+        setFormData({
+            ...formData,
+            [event.target.name]: event.target.value,
+        });
+    };
+
+    // handle gpt-model select
+    const handleModelOptionChange = (event) => {
+        setSelectedModel(event.target.value);
+    };
+
+    // handle mode select
+    const handleOptionChange = (event) => {
+         setSelectedOption(event.target.value);
+    };
+
+    // copy text with a mouse click
+    const copyText = (event) => { 
+        navigator.clipboard.writeText(event.target.textContent);
+        setTimeout(() => {
+            event.target.style.backgroundColor = '#1e383d';
+        }, 200);
+        event.target.style.backgroundColor = '#17592f';
+    };
+
+    // token = true;
+
+    return (
+        <>
+        {token && window.location.pathname === '/lang-assistant' && (
+        <div className="container text-light p-4 mb-5">
+            <div className="d-flex m-4 justify-content-center"><h3 className="text-light">Language Assistant</h3></div>
+            <hr className='bg-secondary p-1 mb-5'/>
+            
+            {/* 0. Description */}
+            <div className={`fade-in-box ${fadeIn ? 'fade-in' : ''}`}>
+                This chat-GPT-based language assistant is a tool that helps you write in a foreign language.
+                From translation to text correction, this tool helps people in languages such as English, German, Hungarian, and Latin.
+                My goal with the language assistant is to create a basic self-learning tool and evolve as the models develop.
+            </div>
+            
+            {/* 1. Form */}
+
+            {/* 1.1 Select GPT model */}
+            <form className="p-md-2 mb-4 mt-4 justify-content-center" onSubmit={postPrompt}>
+            <span className='text-light mx-2'><Icon style={{transform: "translateY(-5%)"}} icon={handORight} size={20}/></span><b>Select gpt model</b>
+                <select className="form-select w-100 mb-4" size={models.length} aria-label="size 3 select example" value={selectedModel} onChange={handleModelOptionChange}>
+                    {models.map((model, index) => (
+                        <option key={index} value={model}>
+                            {model}
+                        </option>
+                    ))}
+                </select>
+                {/* 1.2 Select lang-assistant mode */}
+                <span className='text-light mx-2'><Icon style={{transform: "translateY(-5%)"}} icon={handORight} size={20}/></span><b>Select assistant mode</b>
+                <select className="form-select w-100 mb-4" size={options.length} aria-label="size 3 select example" value={selectedOption} onChange={handleOptionChange}>
+                    {options.map((option, index) => (
+                        <option key={index} value={option}>
+                            {option}
+                        </option>
+                    ))}
+                </select>
+                <div className={`fade-in-box ${fadeIn ? 'fade-in' : ''} ml-1 ml-sm-2 mb-4 w-100`}>
+                    {selectedModel && (
+                        <p className='h6 m-2'>Selected model: <span style={{color: '#73ef8f'}}>[ {selectedModel} ]</span></p>
+                    )}
+                    {selectedOption && (
+                        <p className='h6 m-2'>Selected mode: <span style={{color: '#73ef8f'}}> [ {selectedOption} ]</span><span style={{fontSize: '14px'}}> Please take into account the mode when formulating the prompt.</span></p>
+                    )}
+                </div>
+                <span className='text-light mx-2 mt-4'><Icon style={{transform: "translateY(-5%)"}} icon={handORight} size={20}/></span><b>Add Prompt</b>
+                <textarea className="form-control" type="text" value={formData.prompt} name="prompt" onChange={handleInput}/>
+                <div className='d-flex justify-content-center'>
+                    <button className="d-block float-right btn btn-success mt-4 col-4" type="submit" data-toggle="tooltip" title="Send"><i className="chat-icon fa-solid mx-3 fa-paper-plane"></i><b>Send</b></button>    
+                </div>
+            </form>
+            <br />
+
+            {/* 2. Answer box */}
+
+            {isLoading ? <div className='d-flex mb-3 justify-content-center'><div className='spinner'></div></div> : '' }
+            {response.slice().reverse().map(item => (
+                <>
+                <div id={item.id} className="p-md-2 mb-4 justify-content-center" style={{backgroundColor:'#17592f', border: '3px solid rgba(0, 0, 0, 0.05)', borderRadius: '10px', margin: '1% 0% 2% 1.5%' }}>
+                    {/* 2.1 Header of Answer box */}
+                    <div className='pb-3 pb-md-0 text-dark' style={{padding: '0.5%', backgroundColor: '#8ac29f', borderRadius: '8px'}} >
+                        <i data-toggle="tooltip" title="Delete" className="delete float-right cursor-like text-dark fa-solid fa-trash fa-lg mt-4 mb-4 mx-3" onClick={() => deleteItem(item.id)} style={{transform: "translateY(500%)"}}></i>
+                        <div className='d-sm-flex pt-3 px-2 mx-2 justify-content-between'>
+                            <p key={item.id}><span className="text-dark"><b>{item.mode}</b></span></p>
+                            <span className='text-warning p-1 px-3 mb-3' style={{backgroundColor: '#414523', borderRadius: '0.25rem', fontFamily: 'Orbitron', fontSize: '14px'}}>
+                                {convertTimestampToDate(item.timestamp,'iso')}
+                            </span>
+                        </div>
+                    </div>
+                    {/* 2.2 Body of Answer box */}
+                    <div className='pt-3'>
+                        <b className='px-2 mx-2' style={{color: '#73ef8f'}}>[ prompt ]</b>
+                        <p className='p-2 m-2'> <b> {item.prompt} </b></p>
+                        <b className='px-2 mx-2' style={{color: '#73ef8f'}}>[ response ]</b>
+                        <p className='answer p-2 m-2' data-toggle="tooltip" title="Copy text with a click" 
+                        onClick={copyText}
+                        onMouseEnter={(event) => {event.target.style.backgroundColor = '#1e383d';}}
+                        onMouseLeave={(event) => {event.target.style.backgroundColor = 'transparent';}}
+                        >
+                            {item.answer}
+                        </p>
+                        <div className='pb-2'></div>
+                        <hr style={{padding: '0.15%', backgroundColor: '#8ac29f'}}/>
+                        <div id='actual'></div>
+                    </div>
+                </div>
+                <br />
+                </>   
+            ))}
+        </div>
+        )}
+        </>
+    );
+}
