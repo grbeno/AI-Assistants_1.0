@@ -5,10 +5,11 @@ function withAuth(WrappedComponent) {
   return function AuthenticatedComponent(props) {
     let navigate = useNavigate();
     let token = localStorage.getItem('access_token');
+    let setnew = /^api\/password_reset\/confirm\/email\//;
 
     useEffect(() => {
-      if (!token && window.location.pathname !== '/signup' && window.location.pathname !== '/reset') { 
-          navigate('/login');
+      if (!token && window.location.pathname !== '/signup' && window.location.pathname !== '/reset' && setnew.test(window.location.pathname)) { 
+        navigate('/login');
       }
     }, [token, navigate]);
 

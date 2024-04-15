@@ -167,6 +167,9 @@ export default function Chat() {
         <>
         {token && window.location.pathname === '/lang-assistant' && (
         <div className="container text-light p-4 mb-5">
+            <div className="d-flex justify-content-center">
+                <div className="circle"><i class="fa-solid fa-robot fa-2x" ></i></div>
+            </div>
             <div className="d-flex m-4 justify-content-center"><h3 className="text-light">Language Assistant</h3></div>
             <hr className='bg-secondary p-1 mb-5'/>
             
@@ -216,7 +219,7 @@ export default function Chat() {
 
             {/* 2. Answer box */}
 
-            {isLoading ? <div className='d-flex mb-3 justify-content-center'><div className='spinner'></div></div> : '' }
+            {isLoading ? <div className='d-flex mb-5 justify-content-center'><div className='spinner'></div></div> : '' }
             {response.slice().reverse().map(item => (
                 <>
                 <div id={item.id} className="p-md-2 mb-4 justify-content-center" style={{backgroundColor:'#17592f', border: '3px solid rgba(0, 0, 0, 0.05)', borderRadius: '10px', margin: '1% 0% 2% 1.5%' }}>

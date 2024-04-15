@@ -21,6 +21,17 @@ input::placeholder {
   cursor: pointer;
 }
 
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  width: 70px;
+  border: 2px solid #5d6b64;
+  border-radius: 40%;
+  background-color: transparent;
+}
+
 /* fadein box */
 
 .fade-in-box {

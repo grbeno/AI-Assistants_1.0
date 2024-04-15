@@ -44,7 +44,7 @@ const Reset = () => {
                     </span>
                 </legend>
                 <hr className='bg-light'/>
-                <div className='p-2'>
+                <div className='d-flex justify-content-center'>
                     <input className='p-2 text-center rounded' type="text" name="email" placeholder="email"/>
                 </div>
                 <div className='d-flex p-2 pt-4 pb-4 justify-content-center'>

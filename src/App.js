@@ -5,6 +5,7 @@ import {expirationTime} from './utils';
 import AuthContext from './Auth/AuthContext';
 import axiosInstance from './axios';
 import withAuth from './LoginRequired';
+import { useNavigate  } from 'react-router-dom';
 
 
 const App = () => {
@@ -12,12 +13,14 @@ const App = () => {
   const {deleteUser} = useContext(AuthContext);
   
   // token
-  var token = localStorage.getItem('access_token');
+  const token = localStorage.getItem('access_token');
   const user = token ? jwtDecode(token) : '';
   const expirationTimeRefAccess = useRef(expirationTime('access_token'));
   const expirationTimeRefRefresh = useRef(expirationTime('refresh_token'));
 
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const handleDeleteUser = async (e) => {
     e.preventDefault();
@@ -42,9 +45,13 @@ const App = () => {
 
   // useEffect for tokens
   useEffect(() => {
+    let validToken = token
     console.log(expirationTimeRefAccess);
     console.log(expirationTimeRefRefresh);
-  } , [expirationTimeRefAccess, expirationTimeRefRefresh]);
+    if (!validToken && window.location.pathname === '/') {
+      navigate('/login');
+    }
+  } , [expirationTimeRefAccess, expirationTimeRefRefresh, token]);
 
   // token = true;
 
