@@ -212,7 +212,7 @@ export default function Chat() {
                 <span className='text-light mx-2 mt-4'><Icon style={{transform: "translateY(-5%)"}} icon={handORight} size={20}/></span><b>Add Prompt</b>
                 <textarea className="form-control" type="text" value={formData.prompt} name="prompt" onChange={handleInput}/>
                 <div className='d-flex justify-content-center'>
-                    <button className="d-block float-right btn btn-success mt-4 col-4" type="submit" data-toggle="tooltip" title="Send"><i className="chat-icon fa-solid mx-3 fa-paper-plane"></i><b>Send</b></button>    
+                    <button className="d-block float-right btn btn-success mt-4 col-4" type="submit" data-toggle="tooltip" title="Send" disabled={!formData.prompt}><i className="chat-icon fa-solid mx-3 fa-paper-plane"></i><b>Send</b></button>    
                 </div>
             </form>
             <br />

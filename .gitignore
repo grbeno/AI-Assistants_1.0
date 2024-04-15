@@ -8,7 +8,7 @@ __pycache__/
 
 # django-react-jwt project
 requirements-dev.txt
-header-sample.txt
+dev-stuff.txt
 
 # Distribution / packaging
 .Python
