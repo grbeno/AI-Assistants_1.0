@@ -6,26 +6,28 @@ import {eye} from 'react-icons-kit/feather/eye'
 import {unlock} from 'react-icons-kit/feather/unlock'
 import {info} from 'react-icons-kit/feather/info'
 
+
 const Signup = () => {
 
     const {signup} = useContext(AuthContext);
     const token = localStorage.getItem('access_token');
     const [error, setError] = useState("");
-    const [icon, setIcon] = useState(eyeOff);
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
-    const [type, setType] = useState('password');
 
-    // show-hide password
-    const handleShowPassword = () => {
-        if (type === 'password') {
-            setType('text');
-            setIcon(eye);
-        } else {
-            setType('password');
-            setIcon(eyeOff);
-        }
-    }
+   // Initialize state for each input field
+    const [passwordType, setPasswordType] = useState({
+        password1: 'password',
+        password2: 'password',
+    });
+
+    // for all input fields
+    const handleShowPassword = (field) => {
+        setPasswordType({
+            ...passwordType,
+            [field]: passwordType[field] === 'password' ? 'text' : 'password'
+        });
+    };
 
     const handleSignup = (e) => {
         e.preventDefault();
@@ -56,13 +58,16 @@ const Signup = () => {
                         <input className='p-2 text-center rounded form-control' type="text" name="email" placeholder="email"/>
                     </div>
                     <div className='p-2 position-relative'>
-                        <input className='p-2 text-center rounded form-control' type={type} onChange={(e) => setPassword(e.target.value)} value={password} name="password" placeholder="password"/>
-                        <span className="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={handleShowPassword}>
-                            <Icon icon={icon} size={13}/>
+                        <input className='p-2 text-center rounded form-control' type={passwordType.password1} onChange={(e) => setPassword(e.target.value)} value={password} name="password" placeholder="password"/>
+                        <span className="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={() => handleShowPassword('password1')}>
+                            <Icon icon={passwordType.password1 === 'password' ? eyeOff : eye} size={13}/>
                         </span>
                     </div>
                     <div className='p-2 position-relative'>
-                        <input className='p-2 text-center rounded form-control' type={type} onChange={(e) => setPassword2(e.target.value)} value={password2} name="password2" placeholder="password again"/>
+                        <input className='p-2 text-center rounded form-control' type={passwordType.password2} onChange={(e) => setPassword2(e.target.value)} value={password2} name="password2" placeholder="password again"/>
+                        <span className="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={() => handleShowPassword('password2')}>
+                            <Icon icon={passwordType.password2 === 'password' ? eyeOff : eye} size={13}/>
+                        </span>
                     </div>
                     <div className='d-flex p-2 pt-4 justify-content-center'>
                         <input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Signup"/>

@@ -1,19 +1,3 @@
-/* const token = localStorage.getItem('access_token');
-
-const LangAssistant = () => {
-  return (
-        <>
-        {token && window.location.pathname !== '/' &&
-            <div className="d-flex mt-4 justify-content-center">
-                <h4 className="p-5 text-center text-light">Hello, I am your language assistant.</h4>
-            </div>
-        }
-        </>    
-    );
-}
-
-export default LangAssistant; */
-
 import React, {useEffect, useState, useRef} from 'react';
 import axiosInstance from '../axios';
 import {expirationTime, convertTimestampToDate} from '../utils';
@@ -57,16 +41,6 @@ export default function Chat() {
 
     // path
     const path =  process.env.REACT_APP_BASE_URL + '/api/chat/';
-
-    // const getAnswer = () => {
-    //     axiosInstance.get(path)
-    //     .then((res) => {
-    //         setResponse(res.data);
-    //     })  
-    //     .catch((error) => {
-    //         console.log(error);
-    //     });
-    // };
 
     const postPrompt = (e) => {
         setIsLoading(true); // spinner on
@@ -206,13 +180,13 @@ export default function Chat() {
                         <p className='h6 m-2'>Selected model: <span style={{color: '#73ef8f'}}>[ {selectedModel} ]</span></p>
                     )}
                     {selectedOption && (
-                        <p className='h6 m-2'>Selected mode: <span style={{color: '#73ef8f'}}> [ {selectedOption} ]</span><span style={{fontSize: '14px'}}> Please take into account the mode when formulating the prompt.</span></p>
+                        <p className='h6 m-2'>Selected mode: <span style={{color: '#73ef8f'}}> [ {selectedOption} ]</span><span style={{fontSize: '14px'}}> Please consider the mode when formulating the prompt.</span></p>
                     )}
                 </div>
                 <span className='text-light mx-2 mt-4'><Icon style={{transform: "translateY(-5%)"}} icon={handORight} size={20}/></span><b>Add Prompt</b>
                 <textarea className="form-control" type="text" value={formData.prompt} name="prompt" onChange={handleInput}/>
                 <div className='d-flex justify-content-center'>
-                    <button className="d-block float-right btn btn-success mt-4 col-4" type="submit" data-toggle="tooltip" title="Send" disabled={!formData.prompt}><i className="chat-icon fa-solid mx-3 fa-paper-plane"></i><b>Send</b></button>    
+                    <button className="d-block float-right btn btn-primary mt-4 col-4" type="submit" data-toggle="tooltip" title="Send" disabled={!formData.prompt}><i className="chat-icon fa-solid mx-3 fa-paper-plane"></i><b>Send</b></button>    
                 </div>
             </form>
             <br />
@@ -228,7 +202,7 @@ export default function Chat() {
                         <i data-toggle="tooltip" title="Delete" className="delete float-right cursor-like text-dark fa-solid fa-trash fa-lg mt-4 mb-4 mx-3" onClick={() => deleteItem(item.id)} style={{transform: "translateY(500%)"}}></i>
                         <div className='d-sm-flex pt-3 px-2 mx-2 justify-content-between'>
                             <p key={item.id}><span className="text-dark"><b>{item.mode}</b></span></p>
-                            <span className='text-warning p-1 px-3 mb-3' style={{backgroundColor: '#414523', borderRadius: '0.25rem', fontFamily: 'Orbitron', fontSize: '14px'}}>
+                            <span className='text-warning p-1 px-3 mb-3' style={{backgroundColor: '#414523', borderRadius: '0.25rem', fontFamily: 'monospace', fontSize: '14px'}}>
                                 {convertTimestampToDate(item.timestamp,'iso')}
                             </span>
                         </div>

@@ -13,7 +13,7 @@ const App = () => {
   const {deleteUser} = useContext(AuthContext);
   
   // token
-  const token = localStorage.getItem('access_token');
+  var token = localStorage.getItem('access_token');
   const user = token ? jwtDecode(token) : '';
   const expirationTimeRefAccess = useRef(expirationTime('access_token'));
   const expirationTimeRefRefresh = useRef(expirationTime('refresh_token'));
@@ -51,9 +51,9 @@ const App = () => {
     if (!validToken && window.location.pathname === '/') {
       navigate('/login');
     }
-  } , [expirationTimeRefAccess, expirationTimeRefRefresh, token]);
+  } , [expirationTimeRefAccess, expirationTimeRefRefresh, navigate, token]);
 
-  // token = true;
+  //token = true;
 
   return (
     <>
@@ -64,7 +64,7 @@ const App = () => {
         <div className="d-flex p-3 col-12 col-xl-6 border-bottom justify-content-between">
           <h3 className="float-left text-light">
             <span className="h5 text-secondary">
-              <i className="fa-solid fa-user mr-2" style={{transform: "translateY(-10%)"}}></i>
+              <i className="d-none d-md-inline-block fa-solid fa-user mr-2" style={{transform: "translateY(-12%)"}}></i>
             </span>
              Hello, {user.username}</h3>
           <div></div>
@@ -115,4 +115,4 @@ const App = () => {
   );
 }
 
-export default withAuth(App);
+export default withAuth(App);  // App;

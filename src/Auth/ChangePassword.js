@@ -5,12 +5,11 @@ import {eyeOff} from 'react-icons-kit/feather/eyeOff';
 import {eye} from 'react-icons-kit/feather/eye';
 import {info} from 'react-icons-kit/feather/info';
 
+
 const ChangePassword = () => {
     
     const {change} = useContext(AuthContext);
     const [error, setError] = useState('');
-    const [icon, setIcon] = useState(eyeOff);
-    const [type, setType] = useState('password');
     const [old_password, setOldPassword] = useState('');
     const [new_password, setNewPassword] = useState('');
     const [new_password2, setNewPassword2] = useState('');
@@ -22,15 +21,19 @@ const ChangePassword = () => {
         });
     };
 
-    // show-hide password
-    const handleShowPassword = () => {
-        if (type === 'password') {
-            setType('text');
-            setIcon(eye);
-        } else {
-            setType('password');
-            setIcon(eyeOff);
-        }
+    // Initialize state for each input field
+    const [passwordType, setPasswordType] = useState({
+        oldPassword: 'password',
+        newPassword: 'password',
+        newPassword2: 'password'
+    });
+
+    // for all input fields
+    const handleShowPassword = (field) => {
+        setPasswordType({
+            ...passwordType,
+            [field]: passwordType[field] === 'password' ? 'text' : 'password'
+        });
     };
 
     return (
@@ -45,16 +48,22 @@ const ChangePassword = () => {
                 </legend>
                 <hr className='bg-light'/>
                 <div className='p-2 position-relative'>
-                    <input className='p-2 text-center rounded form-control' type={type} onChange={(e) => setOldPassword(e.target.value)} value={old_password} name="old_password" placeholder="old_password"/>
-                    <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={handleShowPassword}>
-                        <Icon icon={icon} size={15}/>
+                    <input className='p-2 text-center rounded form-control' type={passwordType.oldPassword} onChange={(e) => setOldPassword(e.target.value)} value={old_password} name="old_password" placeholder="old_password"/>
+                    <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={() => handleShowPassword('oldPassword')}>
+                        <Icon icon={passwordType.oldPassword === 'password' ? eyeOff : eye} size={15}/>
                     </span>    
                 </div>
-                <div className='p-2'>
-                    <input className='p-2 text-center rounded form-control' type={type} onChange={(e) => setNewPassword(e.target.value)} value={new_password} name="new_password" placeholder="new_password"/>
+                <div className='p-2 position-relative'>
+                    <input className='p-2 text-center rounded form-control' type={passwordType.newPassword} onChange={(e) => setNewPassword(e.target.value)} value={new_password} name="new_password" placeholder="new_password"/>
+                    <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={() => handleShowPassword('newPassword')}>
+                        <Icon icon={passwordType.newPassword === 'password' ? eyeOff : eye} size={15}/>
+                    </span>   
                 </div>
-                <div className='p-2'>
-                    <input className='p-2 text-center rounded form-control' type={type} onChange={(e) => setNewPassword2(e.target.value)} value={new_password2} name="new_password2" placeholder="new_password2"/>
+                <div className='p-2 position-relative'>
+                    <input className='p-2 text-center rounded form-control' type={passwordType.newPassword2} onChange={(e) => setNewPassword2(e.target.value)} value={new_password2} name="new_password2" placeholder="new_password2"/>
+                    <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={() => handleShowPassword('newPassword2')}>
+                        <Icon icon={passwordType.newPassword2 === 'password' ? eyeOff : eye} size={15}/>
+                    </span>   
                 </div>
                 <div className='d-flex p-2 pt-4 pb-4 justify-content-center'>
                     <input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Change"/>
