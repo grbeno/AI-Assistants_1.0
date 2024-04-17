@@ -1,10 +1,10 @@
 import React, {useContext, useState} from 'react'
 import AuthContext from "./AuthContext";
 import {Icon} from 'react-icons-kit';
+import {eye} from 'react-icons-kit/feather/eye';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff';
-import {eye} from 'react-icons-kit/feather/eye'
-import {unlock} from 'react-icons-kit/feather/unlock'
-import {info} from 'react-icons-kit/feather/info'
+import {unlock} from 'react-icons-kit/feather/unlock';
+import {info} from 'react-icons-kit/feather/info';
 
 
 const Signup = () => {
@@ -43,7 +43,7 @@ const Signup = () => {
                 <form className="auth-form" onSubmit={handleSignup}>
                 <fieldset>
                     <legend>Sign up 
-                        <span className='text-light mx-2'>
+                        <span className='mx-2 text-light'>
                             <Icon style={{transform: "translateY(-5%)"}} icon={unlock} size={20}/>
                         </span>
                         <span className='text-warning' data-toggle="tooltip" title="Your password must contain at least 8 characters, at least one number, at least one uppercase letter and only alphanumeric characters.">
@@ -79,7 +79,7 @@ const Signup = () => {
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">
-                    <i className="h5 sign-icon fa-solid fa-triangle-exclamation mx-2" style={{transform: "translateY(16%)"}}></i>
+                    <i className="sign-icon fa-solid fa-triangle-exclamation h5 mx-2" style={{transform: "translateY(16%)"}}></i>
                     {error}
                 </h6>
             </div>

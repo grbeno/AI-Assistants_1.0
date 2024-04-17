@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import '../Style/App.css'; // Correct import statement for 'App.css'
+import '../Style/App.css';
 import {Link} from 'react-router-dom';
 import AuthContext from '../Auth/AuthContext';
 import axiosInstance from '../axios';
@@ -31,17 +31,17 @@ const Header = () => {
     return(
         <header>
             <nav className="navbar navbar-expand-md m-0 border-bottom shadow-sm" style={{background: 'black'}}>
-                <a className="menu-link navbar-brand mr-auto px-4 text-light" href='/'><span data-toggle="tooltip" title="home"><i className="fa-solid fa-house fa"></i></span></a>
+                <a className="menu-link navbar-brand mr-auto px-4 text-light" href='/'><span data-toggle="tooltip" title="home"><i className="fa-solid fa-house"></i></span></a>
                 <>
                 {token ? (
-                    <span className="offbutton h5 m-4 text-light d-block" onClick={handleLogout}><span data-toggle="tooltip" title="logout"><i className="fa-solid fa-power-off fa"></i></span></span>
+                    <span className="offbutton d-block h5 m-4 text-light" onClick={handleLogout}><span data-toggle="tooltip" title="logout"><i className="fa-solid fa-power-off"></i></span></span>
                 ) : (
                     <div>
-                        <Link to="/login"><span className="h5 text-light" data-toggle="tooltip" title="login"><i className="fa-solid fa-user mx-2 fa"></i></span></Link>
+                        <Link to="/login"><span className="h5 text-light" data-toggle="tooltip" title="login"><i className="fa-solid fa-user mx-2"></i></span></Link>
                     </div>
                 )}
                 </>
-                {superuser && process.env.REACT_APP_BASE_URL==='http://localhost:8000' && <a className="h5 m-4 text-light d-none d-md-block" href="http://localhost:8000/admin/"><span data-toggle="tooltip" title="django-admin"><i className="top-icon fa-solid fa-id-card-clip"></i></span></a>}
+                {superuser && process.env.REACT_APP_BASE_URL==='http://localhost:8000' && <a className="d-none d-md-block h5 m-4 text-light" href="http://localhost:8000/admin/"><span data-toggle="tooltip" title="django-admin"><i className="top-icon fa-solid fa-id-card-clip"></i></span></a>}
             </nav>
         </header>
     )

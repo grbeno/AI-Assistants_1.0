@@ -1,9 +1,10 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {expirationTime, convertTimestampToDate} from '../utils';
 import {Icon} from 'react-icons-kit';
-import {handORight} from 'react-icons-kit/fa/handORight'
+import {handORight} from 'react-icons-kit/fa/handORight';
 import axiosInstance from '../axios';
 import '../Style/Lang.css';
+
 
 // options for select - prompt modes
 const options = [
@@ -139,12 +140,12 @@ export default function Chat() {
     return (
         <>
         {token && window.location.pathname === '/lang-assistant' && (
-        <div className="container text-light p-4 mb-5">
+        <div className="container p-4 mb-5 text-light">
             <div className="d-flex justify-content-center">
                 <div className="circle"><i class="fa-solid fa-robot fa-2x" ></i></div>
             </div>
             <div className="d-flex m-4 justify-content-center"><h3 className="text-light">Language Assistant</h3></div>
-            <hr className='bg-secondary p-1 mb-5'/>
+            <hr className='p-1 mb-5 bg-secondary'/>
             
             {/* 0. Description */}
             <div className={`fade-in-box ${fadeIn ? 'fade-in' : ''}`}>
@@ -156,8 +157,8 @@ export default function Chat() {
             {/* 1. Form */}
             {/* 1.1 Select GPT model */}
             <form className="p-md-2 mb-4 mt-4 justify-content-center" onSubmit={postPrompt}>
-            <span className='text-light mx-2'><Icon style={{transform: "translateY(-5%)"}} icon={handORight} size={20}/></span><b>Select gpt model</b>
-                <select className="form-select w-100 mb-4" size={models.length} aria-label="size 3 select example" value={selectedModel} onChange={handleModelOptionChange}>
+            <span className='mx-2 text-light'><Icon style={{transform: "translateY(-5%)"}} icon={handORight} size={20}/></span><b>Select gpt model</b>
+                <select className="form-select mb-4 w-100" size={models.length} aria-label="size 3 select example" value={selectedModel} onChange={handleModelOptionChange}>
                     {models.map((model, index) => (
                         <option key={index} value={model}>
                             {model}
@@ -165,8 +166,8 @@ export default function Chat() {
                     ))}
                 </select>
                 {/* 1.2 Select lang-assistant mode */}
-                <span className='text-light mx-2'><Icon style={{transform: "translateY(-5%)"}} icon={handORight} size={20}/></span><b>Select assistant mode</b>
-                <select className="form-select w-100 mb-4" size={options.length} aria-label="size 3 select example" value={selectedOption} onChange={handleOptionChange}>
+                <span className='mx-2 text-light'><Icon style={{transform: "translateY(-5%)"}} icon={handORight} size={20}/></span><b>Select assistant mode</b>
+                <select className="form-select mb-4 w-100" size={options.length} aria-label="size 3 select example" value={selectedOption} onChange={handleOptionChange}>
                     {options.map((option, index) => (
                         <option key={index} value={option}>
                             {option}
@@ -184,7 +185,7 @@ export default function Chat() {
                 <span className='text-light mx-2 mt-4'><Icon style={{transform: "translateY(-5%)"}} icon={handORight} size={20}/></span><b>Add Prompt</b>
                 <textarea className="form-control" type="text" value={formData.prompt} name="prompt" onChange={handleInput}/>
                 <div className='d-flex justify-content-center'>
-                    <button className="d-block float-right btn btn-primary mt-4 col-4" type="submit" data-toggle="tooltip" title="Send" disabled={!formData.prompt}><i className="chat-icon fa-solid mx-3 fa-paper-plane"></i><b>Send</b></button>    
+                    <button className="d-block mt-4 col-4 float-right btn btn-primary" type="submit" data-toggle="tooltip" title="Send" disabled={!formData.prompt}><i className="chat-icon fa-solid mx-3 fa-paper-plane"></i><b>Send</b></button>    
                 </div>
             </form>
             <br />
@@ -197,10 +198,10 @@ export default function Chat() {
                 <div id={item.id} className="p-md-2 mb-4 justify-content-center" style={{backgroundColor:'#17592f', border: '3px solid rgba(0, 0, 0, 0.05)', borderRadius: '10px', margin: '1% 0% 2% 1.5%' }}>
                     {/* 2.1 Header of Answer box */}
                     <div className='pb-3 pb-md-0 text-dark' style={{padding: '0.5%', backgroundColor: '#8ac29f', borderRadius: '8px'}} >
-                        <i data-toggle="tooltip" title="Delete" className="delete float-right cursor-like text-dark fa-solid fa-trash fa-lg mt-4 mb-4 mx-3" onClick={() => deleteItem(item.id)} style={{transform: "translateY(500%)"}}></i>
+                        <i data-toggle="tooltip" title="Delete" className="delete cursor-like fa-solid fa-trash fa-lg mt-4 mb-4 mx-3 float-right text-dark" onClick={() => deleteItem(item.id)} style={{transform: "translateY(500%)"}}></i>
                         <div className='d-sm-flex pt-3 px-2 mx-2 justify-content-between'>
                             <p key={item.id}><span className="text-dark"><b>{item.mode}</b></span></p>
-                            <span className='text-warning p-1 px-3 mb-3' style={{backgroundColor: '#414523', borderRadius: '0.25rem', fontFamily: 'monospace', fontSize: '14px'}}>
+                            <span className='p-1 px-3 mb-3 text-warning' style={{backgroundColor: '#414523', borderRadius: '0.25rem', fontFamily: 'monospace', fontSize: '14px'}}>
                                 {convertTimestampToDate(item.timestamp,'iso')}
                             </span>
                         </div>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 function withAuth(WrappedComponent) {
   return function AuthenticatedComponent(props) {
     let navigate = useNavigate();

@@ -1,9 +1,9 @@
 import React, {useContext, useState} from 'react'
 import AuthContext from "./AuthContext";
 import {Icon} from 'react-icons-kit';
+import {eye} from 'react-icons-kit/feather/eye';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff';
-import {eye} from 'react-icons-kit/feather/eye'
-import {unlock} from 'react-icons-kit/feather/unlock'
+import {unlock} from 'react-icons-kit/feather/unlock';
 
 
 const Login = () => {
@@ -71,7 +71,7 @@ const Login = () => {
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">
-                    <i className="h5 sign-icon fa-solid fa-triangle-exclamation mx-2" style={{transform: "translateY(16%)"}}></i>
+                    <i className="sign-icon fa-solid fa-triangle-exclamation h5 mx-2" style={{transform: "translateY(16%)"}}></i>
                     {error}
                 </h6>
             </div>

@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import AuthContext from './AuthContext';
 import {Icon} from 'react-icons-kit';
-import {eyeOff} from 'react-icons-kit/feather/eyeOff';
 import {eye} from 'react-icons-kit/feather/eye';
+import {eyeOff} from 'react-icons-kit/feather/eyeOff';
 import {info} from 'react-icons-kit/feather/info';
 
 
@@ -42,7 +42,7 @@ const ChangePassword = () => {
             <form className='auth-form' onSubmit={handleChange}>
             <fieldset>
                 <legend>Change password
-                    <span className='text-warning mx-2' data-toggle="tooltip" title="Your password must contain at least 8 characters, at least one number, at least one uppercase letter and only alphanumeric characters.">
+                    <span className='mx-2 text-warning' data-toggle="tooltip" title="Your password must contain at least 8 characters, at least one number, at least one uppercase letter and only alphanumeric characters.">
                         <Icon style={{transform: "translateY(-5%)"}} icon={info} size={20}/>
                     </span>
                 </legend>
@@ -74,7 +74,7 @@ const ChangePassword = () => {
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">
-                <i className="h5 sign-icon fa-solid fa-triangle-exclamation mx-2" style={{transform: "translateY(16%)"}}></i>
+                <i className="sign-icon fa-solid fa-triangle-exclamation h5 mx-2" style={{transform: "translateY(16%)"}}></i>
                     {error}
                 </h6>
             </div>
