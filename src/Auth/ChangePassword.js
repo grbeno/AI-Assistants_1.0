@@ -11,7 +11,7 @@ const ChangePassword = () => {
     const {change} = useContext(AuthContext);
     const [error, setError] = useState('');
     const [old_password, setOldPassword] = useState('');
-    const [new_password, setNewPassword] = useState('');
+    const [new_password1, setNewPassword] = useState('');
     const [new_password2, setNewPassword2] = useState('');
 
     const handleChange = (e) => {
@@ -24,7 +24,7 @@ const ChangePassword = () => {
     // Initialize state for each input field
     const [passwordType, setPasswordType] = useState({
         oldPassword: 'password',
-        newPassword: 'password',
+        newPassword1: 'password',
         newPassword2: 'password'
     });
 
@@ -54,9 +54,9 @@ const ChangePassword = () => {
                     </span>    
                 </div>
                 <div className='p-2 position-relative'>
-                    <input className='p-2 text-center rounded form-control' type={passwordType.newPassword} onChange={(e) => setNewPassword(e.target.value)} value={new_password} name="new_password" placeholder="new_password"/>
-                    <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={() => handleShowPassword('newPassword')}>
-                        <Icon icon={passwordType.newPassword === 'password' ? eyeOff : eye} size={15}/>
+                    <input className='p-2 text-center rounded form-control' type={passwordType.newPassword1} onChange={(e) => setNewPassword(e.target.value)} value={new_password1} name="new_password1" placeholder="new_password1"/>
+                    <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={() => handleShowPassword('newPassword1')}>
+                        <Icon icon={passwordType.newPassword1 === 'password' ? eyeOff : eye} size={15}/>
                     </span>   
                 </div>
                 <div className='p-2 position-relative'>

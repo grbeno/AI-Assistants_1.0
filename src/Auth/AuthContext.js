@@ -72,7 +72,7 @@ export const AuthProvider = ({children}) => {
         e.preventDefault();
         axiosInstance.post('accounts/change_password/', {
             old_password: e.target.old_password.value,
-            new_password: e.target.new_password.value,
+            new_password1: e.target.new_password1.value,
             new_password2: e.target.new_password2.value,
         })
         .then((response) => {
@@ -129,17 +129,6 @@ export const AuthProvider = ({children}) => {
             }
         });
     };
-
-    /* const getEmail = () => {
-        axiosInstance.get(`/api/password_reset/token_email/`, {
-        })
-        .then((response) => {
-            console.log(response.data.email);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    }; */
 
     // delete user
     const deleteUser = (errorCallback, id) => {

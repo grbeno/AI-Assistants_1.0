@@ -68,15 +68,15 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
     """ Serializer for password change endpoint. """
 
     old_password = serializers.CharField(required=True)
-    new_password = serializers.CharField(required=True, validators=[validate_password])
+    new_password1 = serializers.CharField(required=True, validators=[validate_password])
     new_password2 = serializers.CharField(required=True)
 
     class Meta:
         model = User
-        fields = ['old_password', 'new_password', 'new_password2']
+        fields = ['old_password', 'new_password1', 'new_password2']
 
     def validate(self, data):
-        if data['new_password'] != data['new_password2']:
+        if data['new_password1'] != data['new_password2']:
             raise serializers.ValidationError({'new_password2': 'Passwords must match.'})
         return data
     
@@ -87,7 +87,7 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
         return value
     
     def update(self, instance, validated_data):
-        instance.set_password(validated_data['new_password'])
+        instance.set_password(validated_data['new_password1'])
         instance.save()
         return instance
     

@@ -1,10 +1,9 @@
 import React, {useEffect, useState, useRef} from 'react';
-import axiosInstance from '../axios';
 import {expirationTime, convertTimestampToDate} from '../utils';
-import '../Style/Lang.css';
-import { Icon } from 'react-icons-kit';
+import {Icon} from 'react-icons-kit';
 import {handORight} from 'react-icons-kit/fa/handORight'
-
+import axiosInstance from '../axios';
+import '../Style/Lang.css';
 
 // options for select - prompt modes
 const options = [
@@ -31,7 +30,7 @@ export default function Chat() {
     const [response, setResponse] = useState([]);
     const [formData, setFormData] = useState({ prompt: '', });
     const [selectedOption, setSelectedOption] = useState('Chat');
-    const [selectedModel, setSelectedModel] = useState('gpt-3.5-turbo'); // gpt-3.5-turbo, gpt-4
+    const [selectedModel, setSelectedModel] = useState('gpt-3.5-turbo');  // gpt-3.5-turbo, gpt-4
     const [isLoading, setIsLoading] = useState(false);
 
     const [fadeIn, setFadeIn] = useState(false);
@@ -43,7 +42,7 @@ export default function Chat() {
     const path =  process.env.REACT_APP_BASE_URL + '/api/chat/';
 
     const postPrompt = (e) => {
-        setIsLoading(true); // spinner on
+        setIsLoading(true);  // spinner on
         e.preventDefault();
         axiosInstance.post(path, {
             mode: selectedOption,
@@ -155,7 +154,6 @@ export default function Chat() {
             </div>
             
             {/* 1. Form */}
-
             {/* 1.1 Select GPT model */}
             <form className="p-md-2 mb-4 mt-4 justify-content-center" onSubmit={postPrompt}>
             <span className='text-light mx-2'><Icon style={{transform: "translateY(-5%)"}} icon={handORight} size={20}/></span><b>Select gpt model</b>

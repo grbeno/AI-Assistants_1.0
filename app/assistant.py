@@ -21,27 +21,27 @@ class Assistant:
         if self.mode.startswith("Translate"):
             system_role_content = """
                 You are an excellent translator. You can translate everything from English, Hungarian, German and Latin.
-                If the request is to translate to the same language, simply correct it grammatically, if necessary. If no corrections are necessary, respond with the prompt itself."""
+                If the request is to translate to the same language, simply correct it grammatically, if necessary. If no corrections are necessary, respond with the prompt itself. """
         elif self.mode.startswith("Correct"):
             system_role_content = """
-                You are an English and German teacher. 
-                You correct the texts as a native speaker with excellent knowledge of grammar would. 
+                You are an English and German teacher.
+                You correct the texts as a native speaker with excellent knowledge of grammar would.
                 If you get a prompt, your response will be the correction, if necesarry.
                 If no corrections are necessary, respond with: The text is grammatically correct.
-                If the language of the request is not English or German, write 'Sorry, I can only correct texts in English or German.' as a response!"""
+                If the language of the request is not English or German, write 'Sorry, I can only correct texts in English or German.' as a response! """
         else:
             system_role_content = """
-                You are a general AI. You can answer any question or respond to any statement. 
-                You can also generate text based on a prompt. 
+                You are a general AI. You can answer any question or respond to any statement.
+                You can also generate text based on a prompt.
                 If you get a prompt, your response will be based on the prompt. 
-                If the prompt is a question, your response will be an answer. 
+                If the prompt is a question, your response will be an answer.
                 If the prompt is a statement, your response will be a response. 
-                If the prompt is a command, your response will be an action. 
+                If the prompt is a command, your response will be an action.
                 If the prompt is a description, your response will be a description. 
                 If the prompt is a question, your response will be an answer. 
                 If the prompt is a statement, your response will be a response. 
                 If the prompt is a command, your response will be an action. 
-                If the prompt is a description, your response will be a description."""
+                If the prompt is a description, your response will be a description. """
         return system_role_content
     
     
