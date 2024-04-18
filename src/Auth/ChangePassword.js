@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import AuthContext from './AuthContext';
 import {Icon} from 'react-icons-kit';
 import {eye} from 'react-icons-kit/feather/eye';
@@ -13,6 +13,8 @@ const ChangePassword = () => {
     const [old_password, setOldPassword] = useState('');
     const [new_password1, setNewPassword] = useState('');
     const [new_password2, setNewPassword2] = useState('');
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -35,6 +37,11 @@ const ChangePassword = () => {
             [field]: passwordType[field] === 'password' ? 'text' : 'password'
         });
     };
+
+    // useEffect for spinner
+    useEffect(() => {
+        setIsLoading(false);  // spinner off when goes to the bottom of the response list
+    }, [error]);
 
     return (
         <>
@@ -71,6 +78,7 @@ const ChangePassword = () => {
             </fieldset>       
             </form>
         </div>
+        {isLoading ? <div className='d-flex justify-content-center'><div className='spinner'></div></div> : '' }
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">

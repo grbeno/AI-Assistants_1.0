@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import AuthContext from "./AuthContext";
 import {Icon} from 'react-icons-kit';
 import {eye} from 'react-icons-kit/feather/eye';
@@ -14,6 +14,7 @@ const Login = () => {
     const [icon, setIcon] = useState(eyeOff);
     const [password, setPassword] = useState("");
     const [type, setType] = useState('password');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -32,6 +33,11 @@ const Login = () => {
             setIcon(eyeOff);
         }
     }
+
+    // useEffect for spinner
+    useEffect(() => {
+        setIsLoading(false);  // spinner off when goes to the bottom of the response list
+    }, [error]);
 
     return (
         <>
@@ -68,6 +74,7 @@ const Login = () => {
                 </form>  
             </div>
         }
+        {isLoading ? <div className='d-flex justify-content-center'><div className='spinner'></div></div> : '' }
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">
