@@ -28,13 +28,14 @@ export const AuthProvider = ({children}) => {
     };
     
     // login
-    const login = (e, errorCallback) => {
+    const login = (e, success, errorCallback) => {
         e.preventDefault();
         axiosInstance.post('/api/token/', {
             username: e.target.username.value,
             password: e.target.password.value 
         })
         .then((response) => {
+            success(true);
             localStorage.setItem('access_token', response.data.access);
             localStorage.setItem('refresh_token', response.data.refresh);
             axiosInstance.defaults.headers['Authorization'] =
