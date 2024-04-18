@@ -9,7 +9,8 @@ __pycache__/
 # django-react-jwt project
 requirements-dev.txt
 dev-stuff.txt
-run_ai_assistants.bat
+run.bat
+gitcommands.bat
 
 # Distribution / packaging
 .Python
