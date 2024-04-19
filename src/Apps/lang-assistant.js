@@ -40,7 +40,7 @@ export default function Chat() {
     const expirationTimeRefRefresh = useRef(expirationTime('refresh_token'));
 
     // path
-    const path =  process.env.REACT_APP_BASE_URL + '/api/chat/';
+    const path =  process.env.REACT_APP_URL + '/api/chat/';
 
     const postPrompt = (e) => {
         setIsLoading(true);  // spinner on
