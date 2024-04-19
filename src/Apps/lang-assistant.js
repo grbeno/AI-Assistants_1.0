@@ -193,7 +193,7 @@ export default function Chat() {
             {/* 2. Answer box */}
 
             {isLoading ? <div className='d-flex mb-5 justify-content-center'><div className='spinner'></div></div> : '' }
-            {response.slice().reverse().map(item => (
+            {response && response.slice().reverse().map(item => (
                 <>
                 <div id={item.id} className="p-md-2 mb-4 justify-content-center" style={{backgroundColor:'#17592f', border: '3px solid rgba(0, 0, 0, 0.05)', borderRadius: '10px', margin: '1% 0% 2% 1.5%' }}>
                     {/* 2.1 Header of Answer box */}
