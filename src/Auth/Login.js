@@ -10,9 +10,7 @@ const Login = () => {
 
     const {login} = useContext(AuthContext);
     const token = localStorage.getItem('access_token');
-    const [success, setSuccess] = useState(false);
     const [error, setError] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
     const [icon, setIcon] = useState(eyeOff);
     const [password, setPassword] = useState("");
     const [type, setType] = useState('password');
@@ -20,11 +18,8 @@ const Login = () => {
     const handleLogin = (e) => {
         e.preventDefault();
         login(e,
-            (success) => { 
-                setSuccess(success); 
-            },
             (errorMessage) => {
-                setError(errorMessage);
+            setError(errorMessage);
         });
     };
 
@@ -39,10 +34,11 @@ const Login = () => {
         }
     }
 
-    // // useEffect for spinner
     useEffect(() => {
-        setIsLoading(false);  // spinner off when goes to the bottom of the response list
-    }, [error, success]);
+        if (token) {
+            window.location.href = '/';
+        }   
+      }, [token]); 
 
     return (
         <>
@@ -79,8 +75,6 @@ const Login = () => {
                 </form>  
             </div>
         }
-        {isLoading ? <div className='d-flex justify-content-center'><div className='spinner'></div></div> : '' }
-        {success}
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">

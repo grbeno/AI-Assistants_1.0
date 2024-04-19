@@ -3,6 +3,7 @@ import AuthContext from "./AuthContext";
 import {Icon} from 'react-icons-kit';
 import {mail} from 'react-icons-kit/feather/mail';
 
+
 const Reset = () => {
 
     const {reset} = useContext(AuthContext);
@@ -14,8 +15,11 @@ const Reset = () => {
         setIsLoading(true); // spinner on
         e.preventDefault();
         reset(e,
-            (errorMessage) => { setError(errorMessage); }, 
-            (successMessage) => { setSuccess(successMessage); 
+            (errorMessage) => { 
+                setError(errorMessage); 
+            }, 
+            (successMessage) => { 
+                setSuccess(successMessage); 
         });
     };
 

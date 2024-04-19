@@ -28,14 +28,13 @@ export const AuthProvider = ({children}) => {
     };
     
     // login
-    const login = (e, success, errorCallback) => {
+    const login = (e, errorCallback) => {
         e.preventDefault();
         axiosInstance.post('/api/token/', {
             username: e.target.username.value,
             password: e.target.password.value 
         })
         .then((response) => {
-            success(true);
             localStorage.setItem('access_token', response.data.access);
             localStorage.setItem('refresh_token', response.data.refresh);
             axiosInstance.defaults.headers['Authorization'] =
@@ -110,7 +109,6 @@ export const AuthProvider = ({children}) => {
         })
         .then((response) => {
             console.log(response);
-
             // Only send the second request if the first one is successful
             return axiosInstance.post('/api/password_reset/confirm/', { 
                 password: e.target.password.value,
