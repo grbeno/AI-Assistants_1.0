@@ -83,6 +83,8 @@ export default function Chat() {
     // useEffect for getting data
     useEffect(() => {
         // get answer
+        console.log(path); // test
+        
         axiosInstance.get(path)
         .then((res) => {
             setResponse(res.data);
