@@ -9,8 +9,8 @@ __pycache__/
 # django-react-jwt project
 requirements-dev.txt
 dev-stuff.txt
-run.bat
-gitcommands.bat
+issues.txt
+*.bat
 
 # Distribution / packaging
 .Python
