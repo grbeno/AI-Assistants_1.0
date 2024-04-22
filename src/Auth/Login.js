@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext, useState} from 'react'
 import AuthContext from "./AuthContext";
 import {Icon} from 'react-icons-kit';
 import {eye} from 'react-icons-kit/feather/eye';
@@ -33,12 +33,6 @@ const Login = () => {
             setIcon(eyeOff);
         }
     }
-
-    useEffect(() => {
-        if (token) {
-            window.location.href = '/';
-        }   
-      }, [token]);
 
     return (
         <>

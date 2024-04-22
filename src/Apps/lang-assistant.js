@@ -142,7 +142,7 @@ export default function Chat() {
 
     return (
         <>
-        {token && (window.location.pathname === '/lang-assistant' || window.location.pathname === path) && (
+        {token && (window.location.pathname === '/lang-assistant/' || window.location.pathname === path) && (
         <div className="container p-4 mb-5 text-light">
             <div className="d-flex justify-content-center">
                 <div className="circle"><i class="fa-solid fa-robot fa-2x" ></i></div>

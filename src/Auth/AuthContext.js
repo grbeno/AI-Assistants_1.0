@@ -1,12 +1,15 @@
 import React, { createContext } from "react";
 import axiosInstance from "../axios";
 import { handleErrorMessages } from "../utils";
+import { useNavigate } from "react-router-dom";
 
 
 export const AuthContext = createContext();
 export default AuthContext;
 
 export const AuthProvider = ({children}) => {
+
+    const navigate = useNavigate();
 
     // signup
     const signup = (e, errorCallback) => {
@@ -39,7 +42,8 @@ export const AuthProvider = ({children}) => {
             localStorage.setItem('refresh_token', response.data.refresh);
             axiosInstance.defaults.headers['Authorization'] =
                 'JWT ' + localStorage.getItem('access_token');
-            window.location.href = '/';
+            // prevent the use of back button after login
+            navigate('/', { replace: true });
         })
         .catch((error) => {
             errorCallback("Wrong username or password! Try again.");
@@ -59,12 +63,17 @@ export const AuthProvider = ({children}) => {
             localStorage.removeItem('access_token');
             localStorage.removeItem('refresh_token');
             delete axiosInstance.defaults.headers['Authorization'];
+            navigate('/login', { replace: true });
         })
         .catch((error) => {
             console.log(error);
         })
         .finally(() => {
-            window.location.href = 'login/';
+            // prevent the use of back button after logout
+            window.history.pushState(null, null, window.location.href);
+            window.onpopstate = () => {
+                window.history.go(1);
+            };
         });
     };
 
