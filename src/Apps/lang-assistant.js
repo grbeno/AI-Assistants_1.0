@@ -42,6 +42,7 @@ export default function Chat() {
 
     // path
     const path =  process.env.REACT_APP_URL + '/api/chat/';
+    const pathname = window.location.pathname.endsWith('/') ? window.location.pathname.slice(0, -1) : window.location.pathname;
 
     const postPrompt = (e) => {
         setIsLoading(true);  // spinner on
@@ -142,7 +143,7 @@ export default function Chat() {
 
     return (
         <>
-        {token && (window.location.pathname === '/lang-assistant/' || window.location.pathname === path) && (
+        {token && (pathname === '/lang-assistant' || window.location.pathname === path) && (
         <div className="container p-4 mb-5 text-light">
             <div className="d-flex justify-content-center">
                 <div className="circle"><i class="fa-solid fa-robot fa-2x" ></i></div>
