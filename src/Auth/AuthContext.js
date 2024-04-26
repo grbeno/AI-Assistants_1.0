@@ -22,7 +22,7 @@ export const AuthProvider = ({children}) => {
         })
         .then((response) => {
             console.log(response);
-            window.location.href = '/login';
+            navigate('/login', { replace: true });
         })
         .catch((error) => {
             errorCallback(`[ ${error.response.data.affected_field} ] ${error.response.data.error_message}`);  // "Already existed username or bad password! Try again."
@@ -147,7 +147,7 @@ export const AuthProvider = ({children}) => {
         })
         .then((response) => {
             console.log(response);
-            window.location.href = '/login';
+            navigate('/login', { replace: true });
         })
         .catch((error) => {
             handleErrorMessages(error, errorCallback);
