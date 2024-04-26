@@ -32,7 +32,7 @@ export default function Chat() {
     const [response, setResponse] = useState([]);
     const [formData, setFormData] = useState({ prompt: '', });
     const [selectedOption, setSelectedOption] = useState('Chat');
-    const [selectedModel, setSelectedModel] = useState('gpt-3.5-turbo');  // gpt-3.5-turbo, gpt-4
+    const [selectedModel, setSelectedModel] = useState('gpt-3.5-turbo');  // default: gpt-3.5-turbo
     const [isLoading, setIsLoading] = useState(false);
 
     const [fadeIn, setFadeIn] = useState(false);
@@ -42,6 +42,7 @@ export default function Chat() {
 
     // path
     const path =  process.env.REACT_APP_URL + '/api/chat/';
+    // localhost: /language-assistant/, production: /lang-assistant
     const pathname = window.location.pathname.endsWith('/') ? window.location.pathname.slice(0, -1) : window.location.pathname;
 
     const postPrompt = (e) => {

@@ -118,15 +118,16 @@ export const AuthProvider = ({children}) => {
         })
         .then((response) => {
             console.log(response);
+            
             // Only send the second request if the first one is successful
             return axiosInstance.post('/api/password_reset/confirm/', { 
-                password: e.target.password.value,
+                password: e.target.password1.value,
                 token: token,
             });
         })
         .then((response) => {
             console.log(response);
-            window.location.href = '/success/';
+            navigate('/success', { replace: true });
         })
         .catch((error) => {
             console.log(error);

@@ -9,30 +9,49 @@ const SetNew = () => {
 
     const {setNew} = useContext(AuthContext);
     const [token, setToken] = useState("");
-    
-    const [password, setPassword] = useState("");
+    const [password1, setPassword] = useState("");
+    const [password2, setPassword2] = useState("");
     const [error, setError] = useState("");
     
     // show-hide password icon
-    const [icon, setIcon] = useState(eyeOff);
-    const [type, setType] = useState('password');
-
-    // show-hide password
-    const handleShowPassword = () => {
-        if (type === 'password') {
-            setType('text');
-            setIcon(eye);
+    const [icon1, setIcon1] = useState(eyeOff);
+    const [icon2, setIcon2] = useState(eyeOff);
+    const [type1, setType1] = useState('password');
+    const [type2, setType2] = useState('password');
+    const [isLoading, setIsLoading] = useState(false);
+ 
+    const handleShowPassword1 = () => {
+        if (type1 === 'password') {
+            setType1('text');
+            setIcon1(eye);
         } else {
-            setType('password');
-            setIcon(eyeOff);
+            setType1('password');
+            setIcon1(eyeOff);
+        }
+    }
+        
+    const handleShowPassword2 = () => {   
+        if (type2 === 'password') {
+            setType2('text');
+            setIcon2(eye);
+        } else {
+            setType2('password');
+            setIcon2(eyeOff);
         }
     }
 
     // set new password - auth context
     const handleSetNew = (e) => {
         e.preventDefault();
+        setIsLoading(true);
+        if (e.target.password1.value !== e.target.password2.value) {
+            setError("Passwords do not match");
+            setIsLoading(false);
+            return;
+        }
         setNew(e, (errorMessage) => {
             setError(errorMessage);
+            setIsLoading(false);
         },
         token,
         );
@@ -50,9 +69,15 @@ const SetNew = () => {
                 <legend>Set new Password</legend>
                 <hr className='bg-light'/>
                 <div className='p-2 position-relative'>
-                    <input className='p-2 text-center rounded form-control' type={type} onChange={(e) => setPassword(e.target.value)} value={password} name="password" placeholder="password"/>
-                        <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={handleShowPassword}>
-                            <Icon icon={icon} size={13}/>
+                    <input className='p-2 text-center rounded form-control' type={type1} onChange={(e) => setPassword(e.target.value)} value={password1} name="password1" placeholder="password"/>
+                        <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={handleShowPassword1}>
+                            <Icon icon={icon1} size={13}/>
+                        </span>
+                </div>
+                <div className='p-2 position-relative'>
+                    <input className='p-2 text-center rounded form-control' type={type2} onChange={(e) => setPassword2(e.target.value)} value={password2} name="password2" placeholder="confirm password"/>
+                        <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={handleShowPassword2}>
+                            <Icon icon={icon2} size={13}/>
                         </span>
                 </div>
                 <div className='d-flex p-2 pb-4 justify-content-center'>
@@ -61,7 +86,7 @@ const SetNew = () => {
             </fieldset>
             </form>  
         </div>
-        {/* }  */}
+        {isLoading ? <div className='d-flex mt-4 justify-content-center'><div className='spinner'></div></div> : '' }
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">

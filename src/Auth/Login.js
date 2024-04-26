@@ -14,12 +14,14 @@ const Login = () => {
     const [icon, setIcon] = useState(eyeOff);
     const [password, setPassword] = useState("");
     const [type, setType] = useState('password');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleLogin = (e) => {
         e.preventDefault();
-        login(e,
-            (errorMessage) => {
+        setIsLoading(true);
+        login(e, (errorMessage) => {
             setError(errorMessage);
+            setIsLoading(false); // spinner off
         });
     };
 
@@ -69,6 +71,7 @@ const Login = () => {
                 </form>  
             </div>
         }
+        {isLoading ? <div className='d-flex mt-4 justify-content-center'><div className='spinner'></div></div> : '' }
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">

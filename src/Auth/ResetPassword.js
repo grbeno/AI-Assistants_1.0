@@ -12,8 +12,8 @@ const Reset = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleReset = (e) => {
-        setIsLoading(true); // spinner on
         e.preventDefault();
+        setIsLoading(true); // spinner on
         reset(e,
             (errorMessage) => { 
                 setError(errorMessage); 
@@ -63,7 +63,7 @@ const Reset = () => {
             </fieldset>
             </form>  
         </div>
-        {isLoading ? <div className='d-flex justify-content-center'><div className='spinner'></div></div> : '' }
+        {isLoading ? <div className='d-flex mt-4 justify-content-center'><div className='spinner'></div></div> : '' }
         {success && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="p-4 text-light rounded">

@@ -13,13 +13,14 @@ const ChangePassword = () => {
     const [old_password, setOldPassword] = useState('');
     const [new_password1, setNewPassword] = useState('');
     const [new_password2, setNewPassword2] = useState('');
-
     const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {
         e.preventDefault();
+        setIsLoading(true);
         change(e, (errorMessage) => {
             setError(errorMessage);
+            setIsLoading(false);
         });
     };
 
@@ -55,19 +56,19 @@ const ChangePassword = () => {
                 </legend>
                 <hr className='bg-light'/>
                 <div className='p-2 position-relative'>
-                    <input className='p-2 text-center rounded form-control' type={passwordType.oldPassword} onChange={(e) => setOldPassword(e.target.value)} value={old_password} name="old_password" placeholder="old_password"/>
+                    <input className='p-2 text-center rounded form-control' type={passwordType.oldPassword} onChange={(e) => setOldPassword(e.target.value)} value={old_password} name="old_password" placeholder="old password"/>
                     <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={() => handleShowPassword('oldPassword')}>
                         <Icon icon={passwordType.oldPassword === 'password' ? eyeOff : eye} size={15}/>
                     </span>    
                 </div>
                 <div className='p-2 position-relative'>
-                    <input className='p-2 text-center rounded form-control' type={passwordType.newPassword1} onChange={(e) => setNewPassword(e.target.value)} value={new_password1} name="new_password1" placeholder="new_password1"/>
+                    <input className='p-2 text-center rounded form-control' type={passwordType.newPassword1} onChange={(e) => setNewPassword(e.target.value)} value={new_password1} name="new_password1" placeholder="new password"/>
                     <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={() => handleShowPassword('newPassword1')}>
                         <Icon icon={passwordType.newPassword1 === 'password' ? eyeOff : eye} size={15}/>
                     </span>   
                 </div>
                 <div className='p-2 position-relative'>
-                    <input className='p-2 text-center rounded form-control' type={passwordType.newPassword2} onChange={(e) => setNewPassword2(e.target.value)} value={new_password2} name="new_password2" placeholder="new_password2"/>
+                    <input className='p-2 text-center rounded form-control' type={passwordType.newPassword2} onChange={(e) => setNewPassword2(e.target.value)} value={new_password2} name="new_password2" placeholder="confirm new password"/>
                     <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={() => handleShowPassword('newPassword2')}>
                         <Icon icon={passwordType.newPassword2 === 'password' ? eyeOff : eye} size={15}/>
                     </span>   
@@ -78,7 +79,7 @@ const ChangePassword = () => {
             </fieldset>       
             </form>
         </div>
-        {isLoading ? <div className='d-flex justify-content-center'><div className='spinner'></div></div> : '' }
+        {isLoading ? <div className='d-flex mt-4 justify-content-center'><div className='spinner'></div></div> : '' }
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">

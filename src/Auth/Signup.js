@@ -14,6 +14,7 @@ const Signup = () => {
     const [error, setError] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
    // Initialize state for each input field
     const [passwordType, setPasswordType] = useState({
@@ -31,8 +32,10 @@ const Signup = () => {
 
     const handleSignup = (e) => {
         e.preventDefault();
+        setIsLoading(true);
         signup(e, (errorMessage) => {
             setError(errorMessage);
+            setIsLoading(false);
         });
     };
 
@@ -64,7 +67,7 @@ const Signup = () => {
                         </span>
                     </div>
                     <div className='p-2 position-relative'>
-                        <input className='p-2 text-center rounded form-control' type={passwordType.password2} onChange={(e) => setPassword2(e.target.value)} value={password2} name="password2" placeholder="password again"/>
+                        <input className='p-2 text-center rounded form-control' type={passwordType.password2} onChange={(e) => setPassword2(e.target.value)} value={password2} name="password2" placeholder="confirm password"/>
                         <span className="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={() => handleShowPassword('password2')}>
                             <Icon icon={passwordType.password2 === 'password' ? eyeOff : eye} size={13}/>
                         </span>
@@ -76,6 +79,7 @@ const Signup = () => {
                 </form>
             </div>
         }
+        {isLoading ? <div className='d-flex mt-4 justify-content-center'><div className='spinner'></div></div> : '' }
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">
