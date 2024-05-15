@@ -21,6 +21,7 @@ const models = [
     "gpt-3.5-turbo",
     "gpt-4",
     "gpt-4-turbo",
+    "gpt-4o",
 ];
 
 export default function Chat() {
