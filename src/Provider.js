@@ -9,7 +9,8 @@ import ChangePassword from './Auth/ChangePassword';
 import ResetPassword from './Auth/ResetPassword';
 import SetNew from './Auth/SetNewPassword';
 import ResetSuccess from './Auth/ResetSuccess';
-import LangAssistant from './Apps/lang-assistant';
+import Chat from './Apps/lang-assistant';
+import Coder from './Apps/coder-assistant';
 
 
 const Provider = () => {
@@ -25,7 +26,8 @@ const Provider = () => {
                         <Route path="/change" element={<ChangePassword />}/>
                         <Route path="/reset" element={<ResetPassword />}/>
                         <Route path="/success" element={<ResetSuccess />}/>
-                        <Route path="/lang-assistant" element={<LangAssistant />}/>
+                        <Route path="/lang-assistant" element={<Chat />}/>
+                        <Route path="/coder-assistant" element={<Coder />}/>
                         <Route path="/" element={<App />}/>
                     </Routes>
             </AuthProvider>

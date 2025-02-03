@@ -6,6 +6,9 @@ import {expirationTime} from './utils';
 import AuthContext from './Auth/AuthContext';
 import axiosInstance from './axios';
 import withAuth from './LoginRequired';
+import LangImage from './images/computer-4.png';
+import CodeImage from './images/computer-1.png';
+import ChatImage from './images/screen.png';
 
 
 const App = () => {
@@ -53,7 +56,7 @@ const App = () => {
     }
   } , [expirationTimeRefAccess, expirationTimeRefRefresh, navigate, token]);
 
-  //token = true;
+  token = true;
 
   return (
     <>
@@ -76,28 +79,64 @@ const App = () => {
       </div>
       
       {/* You should delete this */}
-      <div className="d-flex m-3 justify-content-center">
-        <div className="card col-12 col-xl-6 text-light" style={{background: '#17592f'}}>
-          <ul className="p-3 m-3" style={{ listStyleType: 'none', textAlign: 'left', color: 'silver' }}>
-            <li className="bg-transparent p-1">Access Token Expiration Time: {expirationTimeRefAccess.current}</li>
-            <li className="bg-transparent p-1">Refresh Token Expiration Time: {expirationTimeRefRefresh.current}</li>
-          </ul>
+      <div className="d-flex justify-content-center">
+        {/* <div className="card col-12 col-xl-6 text-light" style={{background: '#17592f'}}> */}
+        <div className="col-12 col-xl-6 bg-transparent text-light">
+        <div className="content-list card p-3 m-0 m-xl-3 bg-transparent border border-0">
+            <div>Access Token Expiration Time: {expirationTimeRefAccess.current}</div>
+            <div>Refresh Token Expiration Time: {expirationTimeRefRefresh.current}</div>
+        </div>
+        {/* </div> */}
+         
         </div>
       </div>
+
       <div className="d-flex m-3 justify-content-center">
         <div className="d-flex p-3 col-12 col-xl-6 border-bottom justify-content-between">
           <h3 className="float-left text-light">Content</h3>
         </div>
       </div>
 
-      <div className="d-flex m-0 m-xl-3 justify-content-center">
-        <div className="col-12 col-xl-6 bg-transparent text-light">
-          <div className="content-list card p-3 m-0 m-xl-3 bg-transparent border border-0">
-            <button onClick={() => window.location.href='/lang-assistant'}>AI-Assistant for languages</button>
-            <button onClick={() => window.location.href='/lang-assistant'}>Empty project</button>
-            <button onClick={() => window.location.href='/lang-assistant'}>Empty project</button>
-            <button onClick={() => window.location.href='/lang-assistant'}>Empty project</button>
-          </div>
+     <div className="grid-container">
+        <div className="grid">
+          <button className="grid-item" onClick={() => window.location.href='/lang-assistant'}>
+            <div className="image-container">
+              <img src={LangImage} alt="Language" />
+            </div>
+            <span className="grid-text">AI-Assistant for languages</span>
+          </button>
+          <button className="grid-item" onClick={() => window.location.href='/lang-assistant'}>
+            <div className="image-container">
+              <img src={ChatImage} alt="Text-editing" />
+            </div>
+            <span className="grid-text">Real Time AI-Chat</span>
+          </button>
+          <button className="grid-item" onClick={() => window.location.href='/coder-assistant'}>
+            <div className="image-container">
+              <img src={CodeImage} alt="Coding" />
+            </div>
+            <span className="grid-text">AI-Assistant for coding</span>
+          </button>
+        
+        {/*  <button className="grid-item" onClick={() => window.location.href='/'}>
+            <div className="image-container">
+              <img src="/images/language-icon.png" alt="AI-4" />
+            </div>
+            <span className="grid-text">AI-Assistant for </span>
+          </button>
+          <button className="grid-item" onClick={() => window.location.href='/'}>
+            <div className="image-container">
+              <img src="/images/coding-icon.png" alt="AI-5" />
+            </div>
+            <span className="grid-text">AI-Assistant for </span>
+          </button>
+          <button className="grid-item" onClick={() => window.location.href='/'}>
+            <div className="image-container">
+              <img src="/images/editing-icon.png" alt="AI-6" />
+            </div>
+            <span className="grid-text">AI-Assistant for </span>
+          </button>  */}
+        
         </div>
       </div>
 

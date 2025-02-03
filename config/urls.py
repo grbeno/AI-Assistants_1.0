@@ -33,6 +33,6 @@ urlpatterns = [
     path('api/token/blacklist/', BlacklistTokenUpdateView.as_view(), name='blacklist'),
 
     # React
-    re_path(r'^.*$', React.as_view(), name='frontend'),  # Uncomment for react development on localhost:3000 -> npm start ...
+    re_path(r'^.*', React.as_view(), name='frontend'),  # Uncomment for react development on localhost:3000 -> npm start ...
 
 ]

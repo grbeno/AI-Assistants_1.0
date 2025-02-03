@@ -64,26 +64,100 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-/* Content */
+/* Token info */
 
 .content-list {
     list-style-type: none;
     text-align: left;
-    font-size: 20px;
-    cursor: pointer;
+    font-size: 18px;
 }
-.content-list button {
-  padding: 1%;
+
+.content-list div {
+  padding: 1% 0% 1% 3%;
   margin: 1%;
   color: #ffffff;
-  background-color: #1e383d;
+  background-color: #0d4855;
   opacity: 0.8;
-  border: none;
+  border: 1px solid #1e383d;
   outline: none;
   text-decoration: none;
 }
-.content-list button:hover {
-  background-color: #30776e;
+
+.content-list div:hover {
+  background-color: #1e383d;
+  opacity: 1;
+}
+
+/* Grid */
+
+.grid-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 10%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10%;
+  width: 50%;
+}
+
+.grid-item {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 10%;
+  padding: 15px;
+  color: #857d7d;
+  background-color: transparent;
+  border: 1px solid #1e383d;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.image-container {
+  width: 55%;
+  height: 55%;
+  border-radius: 50%;
+  background-color: #094d44;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.grid-text {
+  font-size: 1em;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 500;
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+}
+
+.grid-item:hover {
+  background-color: #1e383d;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 /* Media queries - screen width */
@@ -93,12 +167,19 @@ body {
   .auth-form {
     width: 50%;
   }
+  .grid {
+    width: 90%;
+    gap: 5%;
+  }
 }
 
 /* lg >=992px */
 @media screen and (max-width: 992px) {
   .auth-form {
     width: 60%;
+  }
+  .grid-text {
+    font-size: 0.8em;
   }
 }
 
@@ -107,12 +188,18 @@ body {
   .auth-form {
     width: 70%;
   }
+  .grid-text {
+    font-size: 0.6em;
+  }
 }
 
 /* sm >=576px */
 @media screen and (max-width: 576px) {
   .auth-form {
     width: 80%;
+  }
+  .grid-text {
+    font-size: 1em;
   }
 }
 
@@ -121,5 +208,12 @@ body {
   .auth-form {
     width: 90%;
   }
+  .grid {
+    grid-template-columns: none;
+    width: 70%;
+    gap: 1%;
+  }
 }
+
+
 

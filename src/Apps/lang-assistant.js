@@ -43,7 +43,7 @@ export default function Chat() {
 
     // path
     const path =  process.env.REACT_APP_URL + '/api/chat/';
-    // localhost: /language-assistant/, production: /lang-assistant
+    // localhost: /lang-assistant/, production: /lang-assistant
     const pathname = window.location.pathname.endsWith('/') ? window.location.pathname.slice(0, -1) : window.location.pathname;
 
     const postPrompt = (e) => {
@@ -141,7 +141,7 @@ export default function Chat() {
         event.target.style.backgroundColor = '#17592f';
     };
 
-    // token = true;
+    token = true;
 
     return (
         <>
