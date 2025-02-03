@@ -56,7 +56,9 @@ const App = () => {
     }
   } , [expirationTimeRefAccess, expirationTimeRefRefresh, navigate, token]);
 
-  token = true;
+  if (process.env.REACT_APP_URL.includes('localhost')) {
+    token = true;
+  }
 
   return (
     <>

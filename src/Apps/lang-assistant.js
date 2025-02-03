@@ -141,7 +141,9 @@ export default function Chat() {
         event.target.style.backgroundColor = '#17592f';
     };
 
-    token = true;
+    if (process.env.REACT_APP_URL.includes('localhost')) {
+        token = true;
+    }
 
     return (
         <>
