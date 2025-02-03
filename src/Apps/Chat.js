@@ -91,6 +91,7 @@ const WebSocketChat = () => {
 
             <div className="input-wrapper">
                 <input
+                    className="chat-input"
                     type="text"
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
