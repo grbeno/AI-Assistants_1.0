@@ -83,7 +83,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [ 
-                str(BASE_DIR.joinpath('static')),
                 str(BASE_DIR.joinpath('build')),
                 str(BASE_DIR.joinpath('templates')), 
         ],
@@ -149,7 +148,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'build/'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # whitenoise
 
