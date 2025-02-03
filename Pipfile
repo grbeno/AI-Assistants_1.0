@@ -24,6 +24,11 @@ packaging = "==23.2"
 pyjwt = "==2.8.0"
 django-rest-passwordreset = "==1.4.0"
 openai = "*"
+channels = "*"
+daphne = "*"
+httpx = "==0.27.2"
+channels-redis = "*"
+twisted = {extras = ["http2", "tls"], version = "*"}
 
 [dev-packages]
 

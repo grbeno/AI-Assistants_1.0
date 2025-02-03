@@ -17,6 +17,10 @@ export default function Coder() {
     // localhost: /coder-assistant/, production: /coder-assistant
     const pathname = window.location.pathname.endsWith('/') ? window.location.pathname.slice(0, -1) : window.location.pathname;
     
+    if (process.env.REACT_APP_URL.includes('localhost')) {
+        token = true;
+    }
+    
     return (
         <>
         {token && (pathname === '/coder-assistant' || window.location.pathname === path) && (

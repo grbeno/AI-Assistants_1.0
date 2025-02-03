@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',  # whitenoise
+    'daphne', # daphne
     'django.contrib.staticfiles',
 
     # 3rd party apps
@@ -55,10 +56,12 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',  # JWT
     'corsheaders',  # corsheaders
     'django_rest_passwordreset',  # django-rest-passwordreset
+    'channels',
 
     # Local apps
     'accounts',
-    'app'
+    'app',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -96,6 +99,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+ASGI_APPLICATION = 'config.asgi.application'
 
 
 # Database
@@ -145,9 +149,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
-#STATICFILES_DIRS = [ str(BASE_DIR.joinpath('frontend/build', 'static'))  ]
+STATICFILES_DIRS = [ str(BASE_DIR.joinpath('build', 'static'))  ]
 
-STATIC_ROOT = str(BASE_DIR.joinpath('build', 'static'))
+#STATIC_ROOT = str(BASE_DIR.joinpath('build', 'static'))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -225,3 +229,20 @@ EMAIL_USE_TLS = True
 # DRF Password Reset
 
 DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME = 1  # hour
+
+# Channels
+if DEBUG:
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels.layers.InMemoryChannelLayer",          
+        }    
+    }
+else:
+    CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(env.str('REDISHOST', default="redis"), 6379)],
+        },           
+     }    
+ }

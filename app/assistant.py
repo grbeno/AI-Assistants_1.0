@@ -1,4 +1,4 @@
-import openai
+from openai import OpenAI
 from environs import Env
 from rest_framework.response import Response
 from .serializers import ChatSerializer
@@ -8,6 +8,8 @@ env.read_env()
 
 
 class Assistant:
+
+    __client = OpenAI()
     
     def __init__(self, request):
         self.request = request
@@ -47,9 +49,9 @@ class Assistant:
     
     def __assistant_response(self):
         if self.key:
-            openai.api_key = self.key
+            Assistant.__client.api_key = self.key
             system_role_content = self.__get_response()
-            response = openai.chat.completions.create(
+            response = Assistant.__client.chat.completions.create(
                 model=self.model,  # "gpt-3.5-turbo", "gpt-4",
                 messages=[
                     {"role": "system", "content": system_role_content},

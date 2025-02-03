@@ -11,6 +11,7 @@ import SetNew from './Auth/SetNewPassword';
 import ResetSuccess from './Auth/ResetSuccess';
 import Chat from './Apps/lang-assistant';
 import Coder from './Apps/coder-assistant';
+import WebSocketChat from './Apps/Chat';
 
 
 const Provider = () => {
@@ -28,6 +29,7 @@ const Provider = () => {
                         <Route path="/success" element={<ResetSuccess />}/>
                         <Route path="/lang-assistant" element={<Chat />}/>
                         <Route path="/coder-assistant" element={<Coder />}/>
+                        <Route path="/ws/chat/" element={<WebSocketChat />} />
                         <Route path="/" element={<App />}/>
                     </Routes>
             </AuthProvider>

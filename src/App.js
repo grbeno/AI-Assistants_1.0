@@ -107,7 +107,7 @@ const App = () => {
             </div>
             <span className="grid-text">AI-Assistant for languages</span>
           </button>
-          <button className="grid-item" onClick={() => window.location.href='/lang-assistant'}>
+          <button className="grid-item" onClick={() => window.location.href='/ws/chat/'}>
             <div className="image-container">
               <img src={ChatImage} alt="Text-editing" />
             </div>
