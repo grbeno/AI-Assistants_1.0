@@ -14,6 +14,8 @@ client.api_key=env.str("OPENAI_API_KEY")
 
 class AiChat():
 
+    __role = "You are helpful and friendly assistant. Be short but concise as you can!"
+    
     if settings.DEBUG:
         _channels = {}  # In-Memory Channel Layer
     else:
@@ -28,14 +30,14 @@ class AiChat():
             ## In-Memory Channel Layer
             if self.channel not in AiChat._channels:
                 AiChat._channels[self.channel] = [
-                    {"role": "user", "content": "You are helpful and friendly assistant. Be short but concise as you can!"},
+                    {"role": "user", "content": AiChat.__role},
                 ]
             self.conversation = AiChat._channels[self.channel]
         else:
             ## Redis Channel Layer
             # Check if the channel exists in Redis
             if not self._redis_client.exists(channel):
-                initial_data = [{"role": "system", "content": self._role}]
+                initial_data = [{"role": "system", "content": AiChat._role}]
                 self._redis_client.set(channel, json.dumps(initial_data))
             
             # Retrieve the conversation from Redis
