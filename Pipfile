@@ -29,6 +29,8 @@ daphne = "*"
 httpx = "==0.27.2"
 channels-redis = "*"
 twisted = {extras = ["http2", "tls"], version = "*"}
+celery = "*"
+django-celery-beat = "*"
 
 [dev-packages]
 

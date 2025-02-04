@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { marked } from 'marked';
 import '../Style/Chat.css';
@@ -9,6 +10,8 @@ const WebSocketChat = () => {
     const [inputMessage, setInputMessage] = useState('');
     const [connectionStatus, setConnectionStatus] = useState('Disconnected');
     const socketRef = useRef(null);
+    const navigate = useNavigate();
+
 
     // apply markdown to response messages
     const createMarkup = (markdown) => {
@@ -57,8 +60,14 @@ const WebSocketChat = () => {
             setInputMessage('');
         }
     }, [inputMessage]);
+    
+    useEffect(() => {
+        if (!token) {
+            navigate('/login');
+        }
+    }, [token, navigate]);
 
-    if (window.BACKEND_URL.includes('localhost')) {
+    if (window.location.port === '3000') {
         token = true;
     }
     

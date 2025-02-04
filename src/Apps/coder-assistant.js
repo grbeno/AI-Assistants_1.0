@@ -1,4 +1,5 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
 
 const models = [
     "gpt-3.5-turbo",
@@ -16,8 +17,15 @@ export default function Coder() {
     const path =  window.BACKEND_URL + '/api/chat/';
     // localhost: /coder-assistant/, production: /coder-assistant
     const pathname = window.location.pathname.endsWith('/') ? window.location.pathname.slice(0, -1) : window.location.pathname;
-    
-    if (window.BACKEND_URL.includes('localhost')) {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!token) {
+            navigate('/login');
+        }
+    }, [token, navigate]);
+
+    if (window.location.port === '3000') {
         token = true;
     }
     

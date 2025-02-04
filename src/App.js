@@ -56,9 +56,9 @@ const App = () => {
     }
   } , [expirationTimeRefAccess, expirationTimeRefRefresh, navigate, token]);
 
-  if (process.env.REACT_APP_URL.includes('localhost')) {
+  if (window.location.port === '3000') {
     token = true;
-  }
+  } 
 
   return (
     <>

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import React, {useEffect, useState, useRef} from 'react';
 import {expirationTime, convertTimestampToDate} from '../utils';
 import {Icon} from 'react-icons-kit';
@@ -45,6 +46,7 @@ export default function Chat() {
     const path =  window.BACKEND_URL + '/api/chat/';
     // localhost: /lang-assistant/, production: /lang-assistant
     const pathname = window.location.pathname.endsWith('/') ? window.location.pathname.slice(0, -1) : window.location.pathname;
+    const navigate = useNavigate();
 
     const postPrompt = (e) => {
         setIsLoading(true);  // spinner on
@@ -141,7 +143,13 @@ export default function Chat() {
         event.target.style.backgroundColor = '#17592f';
     };
 
-    if (window.BACKEND_URL.includes('localhost')) {
+    useEffect(() => {
+        if (!token) {
+            navigate('/login');
+        }
+    }, [token, navigate]);
+
+    if (window.location.port === '3000') {
         token = true;
     }
 
