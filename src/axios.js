@@ -3,7 +3,7 @@ import { expirationTime } from './utils';
 
 
 // Export base url from env variable
-const baseURL = process.env.REACT_APP_URL;
+const baseURL = window.BACKEND_URL;  //process.env.REACT_APP_URL;
 
 // Get csrf token
 const getCSRFToken = () => {

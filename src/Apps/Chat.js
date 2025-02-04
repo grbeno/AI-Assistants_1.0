@@ -17,7 +17,7 @@ const WebSocketChat = () => {
 
     // Initialize WebSocket connection
     useEffect(() => {
-        const websocket = new WebSocket(process.env.REACT_WS_URL + '/ws/chat/');
+        const websocket = new WebSocket(window.WS_URL + '/ws/chat/');
         socketRef.current = websocket;
 
         websocket.onopen = () => {
@@ -58,7 +58,7 @@ const WebSocketChat = () => {
         }
     }, [inputMessage]);
 
-    if (process.env.REACT_APP_URL.includes('localhost')) {
+    if (window.BACKEND_URL.includes('localhost')) {
         token = true;
     }
     

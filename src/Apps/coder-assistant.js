@@ -13,11 +13,11 @@ export default function Coder() {
     var token = localStorage.getItem('access_token');
     
     // path
-    const path =  process.env.REACT_APP_URL + '/api/chat/';
+    const path =  window.BACKEND_URL + '/api/chat/';
     // localhost: /coder-assistant/, production: /coder-assistant
     const pathname = window.location.pathname.endsWith('/') ? window.location.pathname.slice(0, -1) : window.location.pathname;
     
-    if (process.env.REACT_APP_URL.includes('localhost')) {
+    if (window.BACKEND_URL.includes('localhost')) {
         token = true;
     }
     

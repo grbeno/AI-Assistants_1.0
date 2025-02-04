@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
     <title>Django-React APP using JWT</title>
+    <script>
+      window.BACKEND_URL = "{{ BACKEND_URL|safe }}";
+      window.WS_URL = "{{ WS_URL|safe }}";
+    </script>
   </head>
   <body>
     <div id="root"></div>
