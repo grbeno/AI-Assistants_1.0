@@ -153,7 +153,7 @@ STATIC_URL = 'static/'
 if DEBUG:
     STATICFILES_DIRS = [ str(BASE_DIR.joinpath('build', 'static'))  ]
 else:
-    STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles')) # production
+    STATIC_ROOT = str(BASE_DIR.joinpath('build', 'static')) # production
 
 
 # Default primary key field type
