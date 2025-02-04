@@ -14,7 +14,7 @@ client.api_key=env.str("OPENAI_API_KEY")
 
 class AiChat():
 
-    __role = "You are helpful and friendly assistant. Be short but concise as you can!"
+    _role = "You are helpful and friendly assistant. Be short but concise as you can!"
     
     if settings.DEBUG:
         _channels = {}  # In-Memory Channel Layer
@@ -30,7 +30,7 @@ class AiChat():
             ## In-Memory Channel Layer
             if self.channel not in AiChat._channels:
                 AiChat._channels[self.channel] = [
-                    {"role": "user", "content": AiChat.__role},
+                    {"role": "user", "content": AiChat._role},
                 ]
             self.conversation = AiChat._channels[self.channel]
         else:
