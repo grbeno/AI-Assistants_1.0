@@ -80,6 +80,7 @@ body {
   border: 1px solid #1e383d;
   outline: none;
   text-decoration: none;
+  font-family: monospace;
 }
 
 .content-list div:hover {

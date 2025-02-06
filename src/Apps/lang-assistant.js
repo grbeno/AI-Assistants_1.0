@@ -2,27 +2,24 @@ import { useNavigate } from 'react-router-dom';
 import React, {useEffect, useState, useRef} from 'react';
 import {expirationTime, convertTimestampToDate} from '../utils';
 import {Icon} from 'react-icons-kit';
-import {handORight} from 'react-icons-kit/fa/handORight';
+import {handPointerO} from 'react-icons-kit/fa/handPointerO';
 import axiosInstance from '../axios';
 import '../Style/Lang.css';
 
 
 // options for select - prompt modes
 const options = [
-    "Chat", 
+    "Correct grammatical errors",
+    "Correct as if it was written by a native speaker",
     "Translate to English",
     "Translate to Hungarian", 
     "Translate to German",
     "Translate to Latin",
-    "Correct grammatical errors",
-    "Correct as if it was written by a native speaker",
 ];
 
 const models = [
-    "gpt-3.5-turbo",
-    "gpt-4",
-    "gpt-4-turbo",
-    "gpt-4o",
+    "gpt-4o-mini",
+    "gpt-4o",   
 ];
 
 export default function Chat() {
@@ -33,8 +30,8 @@ export default function Chat() {
     // data
     const [response, setResponse] = useState([]);
     const [formData, setFormData] = useState({ prompt: '', });
-    const [selectedOption, setSelectedOption] = useState('Chat');
-    const [selectedModel, setSelectedModel] = useState('gpt-3.5-turbo');  // default: gpt-3.5-turbo
+    const [selectedOption, setSelectedOption] = useState('Correct grammatical errors');
+    const [selectedModel, setSelectedModel] = useState('gpt-4o-mini');  // default: gpt-3.5-turbo
     const [isLoading, setIsLoading] = useState(false);
 
     const [fadeIn, setFadeIn] = useState(false);
@@ -61,7 +58,7 @@ export default function Chat() {
             // console.log(res);
             setFormData({ prompt: '', });
             console.log('Selected option: ' + selectedOption);
-            setSelectedOption('Chat');
+            setSelectedOption('Correct grammatical errors');
             setResponse((response) => [...response, res.data]); 
         })
         .catch((error) => {
@@ -173,8 +170,8 @@ export default function Chat() {
             {/* 1. Form */}
             {/* 1.1 Select GPT model */}
             <form className="p-md-2 mb-4 mt-4 justify-content-center" onSubmit={postPrompt}>
-            <span className='mx-2 text-light'><Icon style={{transform: "translateY(-5%)"}} icon={handORight} size={20}/></span><b>Select gpt model</b>
-                <select className="form-select mb-4 w-100" size={models.length} aria-label="size 3 select example" value={selectedModel} onChange={handleModelOptionChange}>
+            <span className='mx-2 text-light'><Icon style={{transform: "translateY(-5%)"}} icon={handPointerO} size={20}/></span>Select gpt model
+                <select className="form-select mb-4 w-100" aria-label="size 3 select example" value={selectedModel} onChange={handleModelOptionChange}>
                     {models.map((model, index) => (
                         <option key={index} value={model}>
                             {model}
@@ -182,8 +179,8 @@ export default function Chat() {
                     ))}
                 </select>
                 {/* 1.2 Select lang-assistant mode */}
-                <span className='mx-2 text-light'><Icon style={{transform: "translateY(-5%)"}} icon={handORight} size={20}/></span><b>Select assistant mode</b>
-                <select className="form-select mb-4 w-100" size={options.length} aria-label="size 3 select example" value={selectedOption} onChange={handleOptionChange}>
+                <span className='mx-2 text-light'><Icon style={{transform: "translateY(-5%)"}} icon={handPointerO} size={20}/></span>Select assistant mode
+                <select className="form-select mb-4 w-100" aria-label="size 3 select example" value={selectedOption} onChange={handleOptionChange}>
                     {options.map((option, index) => (
                         <option key={index} value={option}>
                             {option}
@@ -192,16 +189,17 @@ export default function Chat() {
                 </select>
                 <div className={`fade-in-box ${fadeIn ? 'fade-in' : ''} ml-1 ml-sm-2 mb-4 w-100`}>
                     {selectedModel && (
-                        <p className='h6 m-2'>Selected model: <span style={{color: '#73ef8f'}}>[ {selectedModel} ]</span></p>
+                        <p className='select-status'><b>Selected model:</b> <span style={{color: '#73ef8f'}}>[ {selectedModel} ]</span></p>
                     )}
                     {selectedOption && (
-                        <p className='h6 m-2'>Selected mode: <span style={{color: '#73ef8f'}}> [ {selectedOption} ]</span><span style={{fontSize: '14px'}}> Please consider the mode when formulating the prompt.</span></p>
+                        <p className='select-status'><b>Selected mode:</b> <span style={{color: '#73ef8f'}}> [ {selectedOption} ]</span></p>
                     )}
+                    <p className='select-status' style={{background: '#7b781c'}}>Please consider the mode when formulating the prompt.</p>
                 </div>
-                <span className='text-light mx-2 mt-4'><Icon style={{transform: "translateY(-5%)"}} icon={handORight} size={20}/></span><b>Add Prompt</b>
+                <span className='text-light mx-2 mt-4'><Icon style={{transform: "translateY(-5%)"}} icon={handPointerO} size={20}/></span>Add Prompt
                 <textarea className="form-control" type="text" value={formData.prompt} name="prompt" onChange={handleInput}/>
                 <div className='d-flex justify-content-center'>
-                    <button className="d-block mt-4 col-4 float-right btn btn-primary" type="submit" data-toggle="tooltip" title="Send" disabled={!formData.prompt}><i className="chat-icon fa-solid mx-3 fa-paper-plane"></i><b>Send</b></button>    
+                    <button className="send d-block mt-4 col-4 float-right btn btn-primary" type="submit" data-toggle="tooltip" title="Send" disabled={!formData.prompt}><i className="chat-icon fa-solid mx-3 fa-paper-plane"></i><b></b></button>    
                 </div>
             </form>
             <br />

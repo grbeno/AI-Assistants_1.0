@@ -14,7 +14,7 @@ const getCSRFToken = () => {
 // Axios instance
 const axiosInstance = axios.create({
     baseURL: baseURL,
-    timeout: 5000,
+    timeout: 10000,
     headers: {
         Authorization: localStorage.getItem('access_token') ? 'JWT ' + localStorage.getItem('access_token') : null,
         'X-CSRFToken': getCSRFToken(),

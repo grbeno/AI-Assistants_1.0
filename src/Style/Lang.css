@@ -21,6 +21,10 @@ input::placeholder {
   cursor: pointer;
 }
 
+.send {
+  cursor: pointer;
+}
+
 .circle {
   display: flex;
   justify-content: center;
@@ -35,12 +39,14 @@ input::placeholder {
 /* fadein box */
 
 .fade-in-box {
-  padding: 4%;
-  margin: 1% 0% 2% 2%;
+  padding: 1%;
+  padding-bottom: 2%;
+  margin: 0% 0% 2% 2%;
   font-size: 18px;
-  background-color: #17592f;
   opacity: 0;
-  transition: opacity 1s ease-in-out;    
+  transition: opacity 1s ease-in-out;
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid #5d6b64;
 }
   
 .fade-in {
@@ -62,20 +68,54 @@ input::placeholder {
 .form-select {
   padding: 2%;
   margin: 1%;
-  background-color: #8ac29f;
-  font-size: 18px;
-  color: '#ffffff';
+  background-color: #0d642f;
+  font-size: 1.1em;
+  font-family: monospace;
+  color: #e2e623;
   opacity: 0.8;
-  border: none;
+  border: 1px solid #e2e623;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
   outline: none;
   text-decoration: none;
+  cursor: pointer;
 }
 
 textarea.form-control {
   margin: 1% 0% 1% 1%;
   height: 180px;
-  background-color: #8ac29f;
+  background-color: #080808;
+  border-radius: 15px;
   font-size: 18px;
+  color: white;
 }
 
-   
+textarea.form-control:focus {
+  background-color: #000000;
+  color: white;
+  outline: none;
+  border-color: #555;
+  box-shadow: none;
+}
+
+.select-status {
+  margin: 2%;
+  padding: 1%;
+  background-color: #414523;
+  border-radius: 0.25rem;
+  font-family: monospace;
+  font-size: 16px;
+}
+
+@media screen and (max-width: 400px) {
+  .form-select {
+    font-size: 0.9em;
+    padding-bottom: 2%;
+  }
+  .fade-in-box {
+    font-size: 1em;
+  }
+  .select-status {
+    font-size: 0.9em;
+  }
+}
