@@ -106,9 +106,32 @@ const WebSocketChat = () => {
             {window.location.port === '3000' ? (
                 <div className="messages">
                     <span className="prompt">Hello!</span>
-                    <span className="response">Hello! How can I assist you today?</span>
+                    <span className="response" style={{paddingBottom: '0.5em'}}>Hello! How can I assist you today?</span>
+                    <span class="prompt">Planets and dwarf planets in our solar system?</span>
+                        <span class="response"><p>Sure! Here’s a brief overview:</p>
+                        <p><strong>Planets:</strong></p>
+                        <ol>
+                        <li>Mercury</li>
+                        <li>Venus</li>
+                        <li>Earth</li>
+                        <li>Mars</li>
+                        <li>Jupiter</li>
+                        <li>Saturn</li>
+                        <li>Uranus</li>
+                        <li>Neptune</li>
+                        </ol>
+                        <p><strong>Dwarf Planets:</strong></p>
+                        <ol>
+                        <li>Pluto</li>
+                        <li>Eris</li>
+                        <li>Haumea</li>
+                        <li>Makemake</li>
+                        <li>Ceres</li>
+                        </ol>
+                        <p>Let me know if you need more information!</p>
+                    </span>
                 </div>
-            ) : null}
+            ) : null }
             
             {responseMessages.map((item, index) => (
                 <div key={index} className="messages">
