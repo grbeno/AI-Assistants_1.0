@@ -74,7 +74,7 @@ const ChangePassword = () => {
                     </span>   
                 </div>
                 <div className='d-flex p-2 pt-4 pb-4 justify-content-center'>
-                    <input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Change"/>
+                    <input className='p-2 px-3 w-100 bg-primary text-light border-0 rounded' type="submit" value="Change"/>
                 </div>
             </fieldset>       
             </form>

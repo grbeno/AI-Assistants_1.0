@@ -54,26 +54,26 @@ const Signup = () => {
                         </span>
                     </legend>
                     <hr className='bg-light'/>
-                    <div className='p-2'>
+                    <div className='pt-3'>
                         <input className='p-2 text-center rounded form-control' type="text" name="username" placeholder="username"/>
                     </div>
-                    <div className='p-2'>
+                    <div className='pt-3'>
                         <input className='p-2 text-center rounded form-control' type="text" name="email" placeholder="email"/>
                     </div>
-                    <div className='p-2 position-relative'>
+                    <div className='pt-3 position-relative'>
                         <input className='p-2 text-center rounded form-control' type={passwordType.password1} onChange={(e) => setPassword(e.target.value)} value={password} name="password" placeholder="password"/>
                         <span className="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={() => handleShowPassword('password1')}>
                             <Icon icon={passwordType.password1 === 'password' ? eyeOff : eye} size={13}/>
                         </span>
                     </div>
-                    <div className='p-2 position-relative'>
+                    <div className='pt-3 position-relative'>
                         <input className='p-2 text-center rounded form-control' type={passwordType.password2} onChange={(e) => setPassword2(e.target.value)} value={password2} name="password2" placeholder="confirm password"/>
                         <span className="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={() => handleShowPassword('password2')}>
                             <Icon icon={passwordType.password2 === 'password' ? eyeOff : eye} size={13}/>
                         </span>
                     </div>
-                    <div className='d-flex p-2 pt-4 justify-content-center'>
-                        <input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Signup"/>
+                    <div className='d-flex pt-4 justify-content-center'>
+                        <input className='p-2 px-3 w-100 bg-primary text-light border-0 rounded' type="submit" value="Signup"/>
                     </div>
                 </fieldset>
                 </form>

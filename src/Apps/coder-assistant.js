@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
+import { Icon } from 'react-icons-kit';
+import {wrench} from 'react-icons-kit/iconic/wrench'
 
 const models = [
-    "gpt-3.5-turbo",
-    "gpt-4",
-    "gpt-4-turbo",
     "gpt-4o",
+    "gpt-4o-mini",
 ];
 
 export default function Coder() {
@@ -20,40 +20,40 @@ export default function Coder() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!token) {
+        if (!token && window.location.port !== '3000') {
             navigate('/login');
         }
     }, [token, navigate]);
-
-    if (window.location.port === '3000') {
-        token = true;
-    }
     
     return (
         <>
         {token && (pathname === '/coder-assistant' || window.location.pathname === path) && (
-        <div className="container p-4 mb-5 text-light d-flex justify-content-center">
-            <form className="col-6">
-                <div className="form-group m-1 mb-5">
-                    <label htmlFor="model">Model:</label>
-                    <select className="form-control" id="model">
-                        {models.map((model) => (
-                            <option key={model} value={model}>{model}</option>
-                        ))}
-                    </select>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="code">Code:</label>
-                    <textarea className="form-control" id="code"></textarea>
-                </div>
-                <div className="d-flex justify-content-center">
-                    <button type="submit" className="mt-3 col-6 btn btn-primary">Run</button>
-                </div>
-            </form>
-        </div>
+            <div className="container h4 mt-5 mb-5 text-warning d-flex justify-content-center">
+                <p className="text-center" style={{fontFamily:'monospace'}}>Coder Assistant is under development now!</p>
+                <Icon className='text-secondary' size={'75%'} icon={wrench}/>
+            </div>
+        )}
+    
+        {window.location.port === '3000' && ( 
+            <div className="container mt-5 mb-5 text-light d-flex justify-content-center">
+                <form className="col-6">
+                    <div className="form-group mb-5">
+                        <label htmlFor="model">Model:</label>
+                        <select className="form-control" id="model">
+                            {models.map((model) => (
+                                <option key={model} value={model}>{model}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="form-group w-100">
+                        <label htmlFor="code">Code:</label>
+                        <textarea className="form-control" id="code"></textarea>
+                    </div>
+                    <button type="submit" className="ml-1 col-12 btn btn-primary">Run</button>
+                </form>
+            </div>
         )}
         </>
     );
- }
-
+}
 
