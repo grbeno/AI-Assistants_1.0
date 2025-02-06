@@ -28,7 +28,7 @@ export default function Coder() {
     return (
         <>
         {token && (pathname === '/coder-assistant' || window.location.pathname === path) && (
-            <div className="container h4 mt-5 mb-5 text-warning d-flex justify-content-center">
+            <div className="container h4 mt-5 mb-5 text-light d-flex justify-content-center">
                 <p className="text-center" style={{fontFamily:'monospace'}}>Coder Assistant is under development now!</p>
                 <Icon className='text-secondary' size={'75%'} icon={wrench}/>
             </div>
