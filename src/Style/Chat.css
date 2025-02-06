@@ -1,27 +1,52 @@
 .chat-input {
-    width: 31%;
-    height: 100px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 70%;
+    height: 80px;
     padding: 0.5em;
-    border: none;
     font-size: 1.1em;
+    color: white;
+    border: 1px solid rgb(255 255 255 / 70%);
+    border-radius: 12px;
+    background-color: transparent;
+}
+
+/* Chat.css */
+
+/* Fixed chat input wrapper at the bottom */
+.chat-input-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2em;
+    border-top: 1px solid #dee2e6 !important;
+    background-color: black;
+    
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center;
+    align-items: center;
 }
 
 .chat-button {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 20%;
-    padding: 0.5em;
-    margin-top: 2.0em;
-    background-color: rgba(26, 204, 20, 0.5);
-    color: white;
-    border: none;
+    margin: 0.6em auto;
+    padding: 0.3em;
+    width: 30%;
     font-size: 1em;
     cursor: pointer;
-}
+    border: 1px solid rgb(255 255 255 / 70%);
+    border-radius: 12px;
+    background-color: transparent;
+    color: white;
+}    
 
 .chat-button:hover {
-    background-color: rgba(26, 204, 20, 0.8);
+    background-color: rgba(212, 209, 25, 0.8);
 }
 
 /* classes */
@@ -30,6 +55,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 250px; /* Ensure content isn't hidden by the fixed input */
+    min-height: calc(100vh - 150px);
 }
 
 .messages {
@@ -47,34 +74,33 @@
     padding: 0.7em;
     margin: 0.5em;
     color: white;
+    border: 2px solid rgb(255 255 255 / 70%);
+    border-radius: 12px;
     background-color: rgb(52 142 59 / 70%);
 }
 
 .response {
     display: block;
-    padding: 0.7em;
+    padding: 0.7em 0.7em 0em 0.7em;
     margin: 0.5em;
-    background-color: rgb(255 255 255 / 50%);
-}
-
-.input-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+    border: 2px solid rgb(255 255 255 / 70%);
+    border-radius: 12px;
+    background-color: rgb(255 255 255 / 70%);
 }
 
 .status {
     margin: 1em;
-    font-size: 1.3em;
+    padding: 0.5em;
+    font-size: 1em;
+    background-color: rgba(2, 6, 27, 0.5);
 }
 
 .connected {
-    color: rgb(158, 159, 224);
+    color: rgb(23, 221, 211);
 }
 
 .disconnected {
-    color: rgb(173, 133, 22);
+    color: rgb(219, 127, 22);
 }
 
 @media screen and (max-width: 768px) {
@@ -83,13 +109,13 @@
     }
 
     .status {
-        font-size: 1.1em;
+        font-size: 0.9em;
         text-align: center;
         width: 80%;
     }
 
-    input {
-        width: 75%;
+    .chat-input {
+        width: 100%;
     }
 
     .chat-button {

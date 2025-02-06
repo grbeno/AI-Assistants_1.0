@@ -2,6 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { marked } from 'marked';
 import '../Style/Chat.css';
+import Icon from 'react-icons-kit';
+import {direction} from 'react-icons-kit/entypo/direction'
+import {arrows_horizontal} from 'react-icons-kit/ikons/arrows_horizontal'
 
 const WebSocketChat = () => {
     // token
@@ -10,12 +13,18 @@ const WebSocketChat = () => {
     const [inputMessage, setInputMessage] = useState('');
     const [connectionStatus, setConnectionStatus] = useState('Disconnected');
     const socketRef = useRef(null);
+    const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
 
     // apply markdown to response messages
     const createMarkup = (markdown) => {
         return { __html: marked(markdown) };
+    };
+
+    // Function to scroll to the bottom of the messages
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     };
 
     // Initialize WebSocket connection
@@ -51,6 +60,10 @@ const WebSocketChat = () => {
 
     }, []);
 
+    useEffect(() => {
+        scrollToBottom();
+    }, [responseMessages]);
+
     // Send message handler
     const sendMessage = useCallback(() => {
         if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN && inputMessage.trim()) {
@@ -60,6 +73,13 @@ const WebSocketChat = () => {
             setInputMessage('');
         }
     }, [inputMessage]);
+
+    // Handle pressing Enter key in the input field
+    const handleKeyDown = useCallback((event) => {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    }, [sendMessage]);
     
     useEffect(() => {
         if (!token) {
@@ -79,13 +99,14 @@ const WebSocketChat = () => {
                 connectionStatus === 'Connected' ? 'connected' : 
                 connectionStatus === 'Error' ? 'error' : 'disconnected'
             }`}>
+                <Icon style={{transform: "translateY(-5%)", marginRight: "1em"}} icon={arrows_horizontal} size={20}/>        
                 Websocket status: {connectionStatus}
             </div>
 
             {window.location.port === '3000' ? (
                 <div className="messages">
-                    <span className="prompt">Hi! How is going on?</span>
-                    <span className="response">Oh, thank you for asking. I'm doing well. How about you?</span>
+                    <span className="prompt">Hello!</span>
+                    <span className="response">Hello! How can I assist you today?</span>
                 </div>
             ) : null}
             
@@ -93,17 +114,20 @@ const WebSocketChat = () => {
                 <div key={index} className="messages">
                     <div>
                         <span className="prompt">{item.prompt}</span>
-                        <span className="response" dangerouslySetInnerHTML={createMarkup(item.message)} />
+                        <span className="response" dangerouslySetInnerHTML={createMarkup(item.message)}></span>
                     </div>
                 </div>
             ))}
+             {/* Anchor to scroll to */}
+             <div ref={messagesEndRef} />
 
-            <div className="input-wrapper">
+            <div className="chat-input-wrapper">
                 <input
                     className="chat-input"
                     type="text"
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
+                    onKeyDown={handleKeyDown}
                     placeholder="Type a message..."
                 />
                 <button
@@ -111,7 +135,7 @@ const WebSocketChat = () => {
                     onClick={sendMessage}
                     disabled={!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN}
                 >
-                    Send
+                <Icon style={{transform: "translateY(-5%)", color: 'white'}} icon={direction} size={20}/> 
                 </button>
             </div>
         </div>
