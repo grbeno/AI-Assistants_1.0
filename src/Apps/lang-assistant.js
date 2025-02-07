@@ -31,7 +31,6 @@ export default function Chat() {
     const [selectedOption, setSelectedOption] = useState('Correct grammatical errors');
     const [selectedModel, setSelectedModel] = useState('gpt-4o-mini');  // default: gpt-3.5-turbo
     const [isLoading, setIsLoading] = useState(false);
-
     const [fadeIn, setFadeIn] = useState(false);
 
     const expirationTimeRefAccess = useRef(expirationTime('access_token'));
@@ -42,6 +41,10 @@ export default function Chat() {
     // localhost: /lang-assistant/, production: /lang-assistant
     const pathname = window.location.pathname.endsWith('/') ? window.location.pathname.slice(0, -1) : window.location.pathname;
     const navigate = useNavigate();
+
+    /* const scrollDownBy100px = () => {
+        window.scrollBy({ top: 600, behavior: 'smooth' });
+    }; */
 
     const postPrompt = (e) => {
         setIsLoading(true);  // spinner on
@@ -57,7 +60,7 @@ export default function Chat() {
             setFormData({ prompt: '', });
             console.log('Selected option: ' + selectedOption);
             setSelectedOption('Correct grammatical errors');
-            setResponse((response) => [...response, res.data]); 
+            setResponse((response) => [...response, res.data]);
         })
         .catch((error) => {
             console.log(error);
@@ -137,12 +140,16 @@ export default function Chat() {
         }, 200);
         event.target.style.backgroundColor = '#17592f';
     };
-
+    
     useEffect(() => {
         if (!token) {
             navigate('/login');
         }
     }, [token, navigate]);
+
+    // useEffect(() => {
+    //     scrollDownBy100px();
+    // }, [response]);
 
     if (window.location.port === '3000') {
         token = true;
@@ -185,7 +192,7 @@ export default function Chat() {
                         </option>
                     ))}
                 </select>
-                <div className={`fade-in-box ${fadeIn ? 'fade-in' : ''} ml-1 ml-sm-2 mb-4 w-100`}>
+                {/* <div className={`fade-in-box ${fadeIn ? 'fade-in' : ''} ml-1 ml-sm-2 mb-4 w-100`}> */}
                     {selectedModel && (
                         <p className='select-status'><b>Selected model:</b> <span style={{color: '#73ef8f'}}>[ {selectedModel} ]</span></p>
                     )}
@@ -193,7 +200,7 @@ export default function Chat() {
                         <p className='select-status'><b>Selected mode:</b> <span style={{color: '#73ef8f'}}> [ {selectedOption} ]</span></p>
                     )}
                     <p className='select-status' style={{background: '#7b781c'}}>Please consider the mode when formulating the prompt.</p>
-                </div>
+                {/* </div> */}
                 <span className='text-light mx-2 mt-4'></span>Add Prompt
                 <textarea className="form-control" type="text" value={formData.prompt} name="prompt" onChange={handleInput}/>
                 <div className='d-flex justify-content-center'>
@@ -204,7 +211,7 @@ export default function Chat() {
 
             {/* 2. Answer box */}
 
-            {isLoading ? <div className='d-flex mb-5 justify-content-center'><div className='spinner'></div></div> : '' }
+            {isLoading ? <div className='d-flex mb-5 justify-content-center'><div className='spinner'></div></div> : '' }        
             {response && response.slice().reverse().map(item => (
                 <>
                 <div id={item.id} className="p-md-2 mb-4 justify-content-center" style={{backgroundColor:'#17592f', border: '3px solid rgba(0, 0, 0, 0.05)', borderRadius: '10px', margin: '1% 0% 2% 1.5%' }}>
@@ -232,7 +239,6 @@ export default function Chat() {
                         </p>
                         <div className='pb-2'></div>
                         <hr style={{padding: '0.15%', backgroundColor: '#8ac29f'}}/>
-                        <div id='actual'></div>
                     </div>
                 </div>
                 <br />

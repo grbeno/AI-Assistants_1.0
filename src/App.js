@@ -80,16 +80,18 @@ const App = () => {
         </div>
       </div>
       
-      {/* You should delete this */}
+      {/* You should delete the token info */}
       <div className="d-flex justify-content-center">
-        {/* <div className="card col-12 col-xl-6 text-light" style={{background: '#17592f'}}> */}
         <div className="col-12 col-xl-6 text-light">
-        <div className="content-list card p-3 m-0 m-xl-3 bg-transparent border border-0">
-            <div>Access Token Expiration Time: {expirationTimeRefAccess.current}</div>
-            <div>Refresh Token Expiration Time: {expirationTimeRefRefresh.current}</div>
-        </div>
-        {/* </div> */}
-         
+          <div className="content-list">
+              <div>Access Token Expiration Time: {expirationTimeRefAccess.current}</div>
+              <div>Refresh Token Expiration Time: {expirationTimeRefRefresh.current}</div>
+              <div style={{padding: '2%', background: 'black', color: '#eaffeb', fontSize: '1em'}}>
+              This is a web application that provides AI assistants for different purposes. 
+              It is an interface for trying out use cases that I developed for a larger project 
+              that includes enhancing and fine-tuning LLMs and deploying them on secure servers or cloud services.
+              </div>
+          </div>       
         </div>
       </div>
 

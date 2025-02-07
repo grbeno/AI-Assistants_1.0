@@ -83,12 +83,12 @@ header {
 .content-list {
     list-style-type: none;
     text-align: left;
-    font-size: 18px;
+    font-size: 1em;
 }
 
 .content-list div {
-  padding: 1% 0% 1% 3%;
-  margin: 1%;
+  padding-left: 2%;
+  margin: 2%;
   color: #2cff59;
   background-color: #0d4855;
   border: 1px solid #1e383d;
@@ -228,6 +228,7 @@ header {
   }
   .content-list div {
     font-size: 0.9em;
+    padding: 1%;
   }
 }
 
