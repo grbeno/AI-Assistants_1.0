@@ -30,7 +30,7 @@ const Header = () => {
 
     return(
         <header>
-            <nav className="navbar navbar-expand-md m-0 border-bottom shadow-sm" style={{background: 'black'}}>
+            <nav className="navbar navbar-expand-md m-0 border-bottom shadow-sm" >
                 <a className="menu-link navbar-brand mr-auto px-4 text-light" href='/'><span data-toggle="tooltip" title="home"><i className="fa-solid fa-house"></i></span></a>
                 <>
                 {token ? (

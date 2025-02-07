@@ -1,10 +1,6 @@
 
 /* CSS for the Lang component */
 
-.navbar {
-  background-color: rgba(0,123,255,.25);
-}
-
 .delete {
   cursor: pointer;
 }

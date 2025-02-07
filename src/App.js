@@ -83,7 +83,7 @@ const App = () => {
       {/* You should delete this */}
       <div className="d-flex justify-content-center">
         {/* <div className="card col-12 col-xl-6 text-light" style={{background: '#17592f'}}> */}
-        <div className="col-12 col-xl-6 bg-transparent text-light">
+        <div className="col-12 col-xl-6 text-light">
         <div className="content-list card p-3 m-0 m-xl-3 bg-transparent border border-0">
             <div>Access Token Expiration Time: {expirationTimeRefAccess.current}</div>
             <div>Refresh Token Expiration Time: {expirationTimeRefRefresh.current}</div>

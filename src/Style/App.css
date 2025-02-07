@@ -11,6 +11,9 @@ body {
 header {
   position: fixed;
   width: 100%;
+  background-color: black;
+  opacity: 1;
+  z-index: 100; 
 }
 
 .App {
@@ -88,7 +91,6 @@ header {
   margin: 1%;
   color: #2cff59;
   background-color: #0d4855;
-  opacity: 0.8;
   border: 1px solid #1e383d;
   outline: none;
   text-decoration: none;
@@ -97,7 +99,6 @@ header {
 
 .content-list div:hover {
   background-color: #1e383d;
-  opacity: 1;
 }
 
 /* Grid */
