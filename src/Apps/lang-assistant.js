@@ -1,8 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import React, {useEffect, useState, useRef} from 'react';
 import {expirationTime, convertTimestampToDate} from '../utils';
-import {Icon} from 'react-icons-kit';
-import {handPointerO} from 'react-icons-kit/fa/handPointerO';
 import axiosInstance from '../axios';
 import '../Style/Lang.css';
 
@@ -153,7 +151,7 @@ export default function Chat() {
     return (
         <>
         {token && (pathname === '/lang-assistant' || window.location.pathname === path) && (
-        <div className="container p-4 mb-5 text-light">
+        <div className="container mb-5 text-light">
             <div className="d-flex justify-content-center">
                 <div className="circle"><i class="fa-solid fa-robot fa-2x" ></i></div>
             </div>
@@ -170,7 +168,7 @@ export default function Chat() {
             {/* 1. Form */}
             {/* 1.1 Select GPT model */}
             <form className="p-md-2 mb-4 mt-4 justify-content-center" onSubmit={postPrompt}>
-            <span className='mx-2 text-light'><Icon style={{transform: "translateY(-5%)"}} icon={handPointerO} size={20}/></span>Select gpt model
+            <span className='mx-2 text-light'>Select gpt model</span>
                 <select className="form-select mb-4 w-100" aria-label="size 3 select example" value={selectedModel} onChange={handleModelOptionChange}>
                     {models.map((model, index) => (
                         <option key={index} value={model}>
@@ -179,7 +177,7 @@ export default function Chat() {
                     ))}
                 </select>
                 {/* 1.2 Select lang-assistant mode */}
-                <span className='mx-2 text-light'><Icon style={{transform: "translateY(-5%)"}} icon={handPointerO} size={20}/></span>Select assistant mode
+                <span className='mx-2 text-light'>Select assistant mode</span>
                 <select className="form-select mb-4 w-100" aria-label="size 3 select example" value={selectedOption} onChange={handleOptionChange}>
                     {options.map((option, index) => (
                         <option key={index} value={option}>
@@ -196,7 +194,7 @@ export default function Chat() {
                     )}
                     <p className='select-status' style={{background: '#7b781c'}}>Please consider the mode when formulating the prompt.</p>
                 </div>
-                <span className='text-light mx-2 mt-4'><Icon style={{transform: "translateY(-5%)"}} icon={handPointerO} size={20}/></span>Add Prompt
+                <span className='text-light mx-2 mt-4'></span>Add Prompt
                 <textarea className="form-control" type="text" value={formData.prompt} name="prompt" onChange={handleInput}/>
                 <div className='d-flex justify-content-center'>
                     <button className="send d-block mt-4 col-4 float-right btn btn-primary" type="submit" data-toggle="tooltip" title="Send" disabled={!formData.prompt}><i className="chat-icon fa-solid mx-3 fa-paper-plane"></i><b></b></button>    

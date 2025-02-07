@@ -42,7 +42,7 @@ const Signup = () => {
     return (
         <>
         {!token &&
-            <div className="container d-flex mt-4 justify-content-center">
+            <div className="container d-flex justify-content-center">
                 <form className="auth-form" onSubmit={handleSignup}>
                 <fieldset>
                     <legend>Sign up 

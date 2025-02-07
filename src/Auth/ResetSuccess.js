@@ -5,7 +5,7 @@ const ResetSuccess = () => {
 
     return (
         <>
-        <div className="container d-flex p-4 text-light justify-content-center">
+        <div className="container d-flex text-light justify-content-center">
             <h6>Password has been reset. Please <Link to="/login">login</Link> with the new password.</h6>
         </div>
         </>

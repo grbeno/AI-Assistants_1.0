@@ -63,7 +63,7 @@ const SetNew = () => {
 
     return (
         <>
-        <div className="container d-flex p-4 justify-content-center">
+        <div className="container d-flex justify-content-center">
             <form className='auth-form' onSubmit={handleSetNew}>
             <fieldset>
                 <legend>Set new Password</legend>

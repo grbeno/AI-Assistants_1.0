@@ -2,7 +2,7 @@
 /* CSS for the Lang component */
 
 .navbar {
-  background-color: rgba(38, 95, 156, 0.25);
+  background-color: rgba(0,123,255,.25);
 }
 
 .delete {
@@ -40,16 +40,14 @@ input::placeholder {
 
 .fade-in-box {
   padding: 1%;
-  padding-bottom: 2%;
+  padding-bottom: 3%;
   margin: 0% 0% 2% 2%;
   font-size: 18px;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-  backdrop-filter: blur(10px);
+ 
   border-bottom: 2px solid #5d6b64;
 }
   
-.fade-in {
+/* .fade-in {
   opacity: 1;
 }
 
@@ -61,7 +59,7 @@ input::placeholder {
   
 .fade-out {
   opacity: 0;
-}
+} */
 
 /* form */
 
@@ -72,7 +70,7 @@ input::placeholder {
   font-size: 1.1em;
   font-family: monospace;
   color: #e2e623;
-  opacity: 0.8;
+
   border: 1px solid #e2e623;
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
@@ -114,6 +112,7 @@ textarea.form-control:focus {
   }
   .fade-in-box {
     font-size: 1em;
+    padding-bottom: 5%;
   }
   .select-status {
     font-size: 0.9em;

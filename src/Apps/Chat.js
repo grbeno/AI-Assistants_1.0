@@ -12,10 +12,10 @@ const WebSocketChat = () => {
     const [responseMessages, setResponseMessages] = useState([]);
     const [inputMessage, setInputMessage] = useState('');
     const [connectionStatus, setConnectionStatus] = useState('Disconnected');
+    const [isLoading, setIsLoading] = useState(false);
     const socketRef = useRef(null);
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
-
 
     // apply markdown to response messages
     const createMarkup = (markdown) => {
@@ -64,8 +64,14 @@ const WebSocketChat = () => {
         scrollToBottom();
     }, [responseMessages]);
 
+    // useEffect for spinner
+    useEffect(() => {
+        setIsLoading(false);  // spinner off when goes to the bottom of the response list
+    }, [responseMessages]);
+
     // Send message handler
     const sendMessage = useCallback(() => {
+        setIsLoading(true);  // spinner on
         if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN && inputMessage.trim()) {
             socketRef.current.send(JSON.stringify({
                 prompt: inputMessage,
@@ -99,7 +105,7 @@ const WebSocketChat = () => {
                 connectionStatus === 'Connected' ? 'connected' : 
                 connectionStatus === 'Error' ? 'error' : 'disconnected'
             }`}>
-                <Icon style={{transform: "translateY(-5%)", marginRight: "1em"}} icon={arrows_horizontal} size={20}/>        
+                <Icon style={{marginRight: "1em"}} icon={arrows_horizontal} size={20}/>        
                 Websocket status: {connectionStatus}
             </div>
 
@@ -141,8 +147,10 @@ const WebSocketChat = () => {
                     </div>
                 </div>
             ))}
-             {/* Anchor to scroll to */}
-             <div ref={messagesEndRef} />
+
+            {isLoading ? <div className='d-flex mb-5 justify-content-center'><div className='spinner'></div></div> : '' }
+            {/* Anchor to scroll to */}
+            <div ref={messagesEndRef} />
 
             <div className="chat-input-wrapper">
                 <input

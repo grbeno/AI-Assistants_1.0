@@ -39,7 +39,7 @@ const Reset = () => {
 
     return (
         <>
-        <div className="container d-flex p-4 justify-content-center">
+        <div className="container d-flex justify-content-center">
             <form className='auth-form' onSubmit={handleReset}>
             <fieldset>
                 <legend>New password

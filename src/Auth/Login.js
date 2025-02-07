@@ -39,7 +39,7 @@ const Login = () => {
     return (
         <>
         {!token &&
-            <div className="container d-flex mt-4 justify-content-center">
+            <div className="container d-flex justify-content-center">
                 <form className='auth-form' onSubmit={handleLogin}>
                 <fieldset>
                     <legend>Login

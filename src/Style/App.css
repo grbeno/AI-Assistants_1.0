@@ -8,8 +8,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+header {
+  position: fixed;
+  width: 100%;
+}
+
 .App {
   text-align: center;
+  padding-top: 100px;
+}
+
+.container {
+  padding-top: 120px;
 }
 
 .offbutton {
@@ -45,7 +55,6 @@ body {
   padding-top: 0.8rem;
   text-align: center;
   color: #ee380b;
-  /* background-color: rgb(255, 255, 255); */
   font-family: monospace;
   font-size: 1.2em;
 }
