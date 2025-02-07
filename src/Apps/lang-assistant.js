@@ -199,9 +199,9 @@ export default function Chat() {
                     {selectedOption && (
                         <p className='select-status'><b>Selected mode:</b> <span style={{color: '#73ef8f'}}> [ {selectedOption} ]</span></p>
                     )}
-                    <p className='select-status' style={{background: '#7b781c'}}>Please consider the mode when formulating the prompt.</p>
+                    <p className='select-status mb-4' style={{background: '#7b781c'}}>Please consider the mode when formulating the prompt.</p>
                 {/* </div> */}
-                <span className='text-light mx-2 mt-4'></span>Add Prompt
+                <span className='text-light mx-2'>Add Prompt</span>
                 <textarea className="form-control" type="text" value={formData.prompt} name="prompt" onChange={handleInput}/>
                 <div className='d-flex justify-content-center'>
                     <button className="send d-block mt-4 col-4 float-right btn btn-primary" type="submit" data-toggle="tooltip" title="Send" disabled={!formData.prompt}><i className="chat-icon fa-solid mx-3 fa-paper-plane"></i><b></b></button>    

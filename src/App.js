@@ -10,7 +10,6 @@ import LangImage from './images/computer-4.png';
 import CodeImage from './images/computer-1.png';
 import ChatImage from './images/screen.png';
 
-
 const App = () => {
 
   const {deleteUser} = useContext(AuthContext);
@@ -86,7 +85,7 @@ const App = () => {
           <div className="content-list">
               <div>Access Token Expiration Time: {expirationTimeRefAccess.current}</div>
               <div>Refresh Token Expiration Time: {expirationTimeRefRefresh.current}</div>
-              <div style={{padding: '2%', background: 'black', color: '#eaffeb', fontSize: '1em'}}>
+              <div style={{background: 'black', color: '#eaffeb', fontSize: '1em'}}>
               This is a web application that provides AI assistants for different purposes. 
               It is an interface for trying out use cases that I developed for a larger project 
               that includes enhancing and fine-tuning LLMs and deploying them on secure servers or cloud services.

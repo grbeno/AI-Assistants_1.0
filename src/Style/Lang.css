@@ -93,6 +93,7 @@ textarea.form-control:focus {
 .select-status {
   margin: 2%;
   padding: 1%;
+  padding-left: 2%;
   width: 99%;
   background-color: #414523;
   border-radius: 0.25rem;
