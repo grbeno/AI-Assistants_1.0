@@ -7,9 +7,9 @@
 ## Purpose
 
 - I created this application as a user interface to use LLM-based tools online.
-- It would be a kind of playground for trying use cases in several fields of expertise (natural language learning, education, data analysis etc.).
-- The application is a basic API consumer, using the web as an interface for now.
-- The main goal is that the application can handle API communication between the user interface and self-hosted and fine-tuned LLMs.
+- It would be a kind of playground for trying use cases in several fields of expertise (natural language learning, education, decision support, data analysis etc.).
+- The application is a basic API consumer now, using the web as an interface.
+- The main goal is that the application can handle API communication between the user interface and fine-tuned and self-hosted LLMs.
 
 ## Stack
 
@@ -21,7 +21,7 @@
 
 - Trying and testing other APIs and models from another providers.
 - Trying use cases from another fields of experties.
-- Appying custom fine-tuned, self-hosted LLMs.
+- Applying custom fine-tuned, self-hosted LLMs.
 - Prompt engineering.
 - Upgrading and trying new web designs.
 
