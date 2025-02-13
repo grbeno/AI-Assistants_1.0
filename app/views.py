@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.views.generic import TemplateView
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Chat
 from .serializers import ChatSerializer
@@ -33,16 +34,11 @@ class React(TemplateView):
 		
 		return context
 
-
-# Chat API
-class ChatAPI(APIView):
-    pass
-
-
 class ChatAI(APIView):
 	
 	serializer_class = ChatSerializer
-
+	permission_classes = [IsAuthenticated]
+	
 	def get(self, request):
 		detail = Chat.objects.filter(user=request.user.id)
 		serializer = ChatSerializer(detail, many=True)

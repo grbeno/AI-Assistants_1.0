@@ -12,7 +12,7 @@ from accounts.views import (
 
 urlpatterns = [
     
-    path('admin/', admin.site.urls),
+    path('no4uh/', admin.site.urls),
     
     # App
     path("", include("app.urls")),
