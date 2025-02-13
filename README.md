@@ -1,9 +1,6 @@
-# <div align="center"> AI-Assistants</div>
-<br>
-
 ## About
 
-- AI-Assistants Web Application includes two LLM-based applications using the OpenAI API.
+- **AI-Assistants Web Application** includes two LLM-based applications using the OpenAI API.
 - (1.) Language Assistant Tool, which translates and corrects texts in and from English, German and Hungarian.
 - (2.) Asynchronous Real-Time Chat implemented with Django Channels and WebSocket. 
 
