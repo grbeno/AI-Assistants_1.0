@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.views.generic import TemplateView
+from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -12,6 +13,10 @@ from .assistant import Assistant
 # Django home page
 def home(request):
     return HttpResponse("<h1>Hello, Django-React developer!</h1>")
+
+# Custom 404 page using template
+def custom_404_view(request, exception):
+	return render(request, '404.html', status=404)
 
 
 # React home page

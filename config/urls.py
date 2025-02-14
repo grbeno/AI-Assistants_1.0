@@ -9,7 +9,6 @@ from accounts.views import (
     # GetEmail,
 )
 
-
 urlpatterns = [
     
     path('no4uh/', admin.site.urls),
@@ -33,6 +32,20 @@ urlpatterns = [
     path('api/token/blacklist/', BlacklistTokenUpdateView.as_view(), name='blacklist'),
 
     # React
-    re_path(r'^.*', React.as_view(), name='frontend'),  # Uncomment for react development on localhost:3000 -> npm start ...
+    path('', React.as_view(), name='home'),
+    # auth
+    path('login/', React.as_view(), name='login'),
+    path('signup/', React.as_view(), name='signup'),
+    path('change/', React.as_view(), name='change-password'),
+    path('success/', React.as_view(), name='success'),
+    path('reset/', React.as_view(), name='reset-password'),
+    # app
+    path('lang-assistant/', React.as_view(), name='dashboard'),
+    path('ws/chat/', React.as_view(), name='profile'),
+    path('coder-assistant/', React.as_view(), name='settings'),
+
+    #re_path(r'^.*', React.as_view(), name='frontend'),  # Uncomment for react development on localhost:3000 -> npm start ...
 
 ]
+
+handler404 = 'app.views.custom_404_view'

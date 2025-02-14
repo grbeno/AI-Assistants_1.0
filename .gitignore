@@ -14,6 +14,7 @@ requirements-dev.txt
 dev-stuff.txt
 issues.txt
 *.bat
+.qodo/
 
 # Distribution / packaging
 .Python
