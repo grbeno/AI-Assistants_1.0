@@ -86,7 +86,7 @@ const WebSocketChat = () => {
             }));
             setInputMessage('');
         }
-    }, [inputMessage]);
+    }, [inputMessage, selectedModel]);
 
     // Handle pressing Enter key in the input field
     const handleKeyDown = useCallback((event) => {
@@ -131,8 +131,8 @@ const WebSocketChat = () => {
                 <div className="messages">
                     <span className="prompt">Hello!</span>
                     <span className="response" style={{paddingBottom: '0.5em'}}>Hello! How can I assist you today?</span>
-                    <span class="prompt">Planets and dwarf planets in our solar system?</span>
-                        <span class="response"><p>Sure! Here’s a brief overview:</p>
+                    <span className="prompt">Planets and dwarf planets in our solar system?</span>
+                        <span className="response"><p>Sure! Here’s a brief overview:</p>
                         <p><strong>Planets:</strong></p>
                         <ol>
                         <li>Mercury</li>
