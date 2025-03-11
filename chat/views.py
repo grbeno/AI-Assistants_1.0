@@ -14,8 +14,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # text data from the client
         text_data_json = json.loads(text_data)
         prompt = text_data_json["prompt"]
-        # choose a model 
-        model = 'gpt-4o-mini' 
+        model = text_data_json["model"]
 
         # Response
         model_response = AiChat(prompt, model, self.channel_name)  # instantiate

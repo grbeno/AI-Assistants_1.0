@@ -5,11 +5,18 @@ import '../Style/Chat.css';
 import Icon from 'react-icons-kit';
 import {direction} from 'react-icons-kit/entypo/direction'
 import {arrows_horizontal} from 'react-icons-kit/ikons/arrows_horizontal'
+import {layers} from 'react-icons-kit/iconic/layers'
 
+
+const models = [
+    "gpt-4o-mini",
+    "gpt-4o",   
+];
 const WebSocketChat = () => {
     // token
     var token = localStorage.getItem('access_token');
     const [responseMessages, setResponseMessages] = useState([]);
+    const [selectedModel, setSelectedModel] = useState('gpt-4o-mini');
     const [inputMessage, setInputMessage] = useState('');
     const [connectionStatus, setConnectionStatus] = useState('Disconnected');
     const [isLoading, setIsLoading] = useState(false);
@@ -75,6 +82,7 @@ const WebSocketChat = () => {
         if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN && inputMessage.trim()) {
             socketRef.current.send(JSON.stringify({
                 prompt: inputMessage,
+                model: selectedModel
             }));
             setInputMessage('');
         }
@@ -86,6 +94,11 @@ const WebSocketChat = () => {
             sendMessage();
         }
     }, [sendMessage]);
+
+    // handle gpt-model select
+    const handleModelOptionChange = (event) => {
+        setSelectedModel(event.target.value);
+    };
     
     useEffect(() => {
         if (!token) {
@@ -105,10 +118,15 @@ const WebSocketChat = () => {
                 connectionStatus === 'Connected' ? 'connected' : 
                 connectionStatus === 'Error' ? 'error' : 'disconnected'
             }`}>
-                <Icon style={{marginRight: "1em"}} icon={arrows_horizontal} size={20}/>        
+                <Icon style={{marginRight: "1em", marginLeft: "1em"}} icon={arrows_horizontal} size={20}/>        
                 Websocket status: {connectionStatus}
             </div>
-
+            {selectedModel && (
+                <div className="select-model">
+                    <Icon style={{marginRight: "1em", marginLeft: "1em"}} icon={layers} size={20}/> 
+                    Selected model: {selectedModel}
+                </div>
+            )}
             {window.location.port === '3000' ? (
                 <div className="messages">
                     <span className="prompt">Hello!</span>
@@ -150,9 +168,15 @@ const WebSocketChat = () => {
 
             {isLoading ? <div className='d-flex mb-5 justify-content-center'><div className='spinner'></div></div> : '' }
             {/* Anchor to scroll to */}
-            <div ref={messagesEndRef} />
-
+            <div ref={messagesEndRef} className="mb-5"/>
             <div className="chat-input-wrapper">
+                <select className="bg-dark text-light mb-4 p-1 col-sm-3" aria-label="size 3 select example" value={selectedModel} onChange={handleModelOptionChange}>
+                    {models.map((model, index) => (
+                        <option key={index} value={model}>
+                            {model}
+                        </option>
+                    ))}
+                </select>
                 <input
                     className="chat-input"
                     type="text"
