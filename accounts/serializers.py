@@ -1,5 +1,7 @@
 import os
+import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+django.setup()
 
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
