@@ -71,7 +71,7 @@ const WebSocketChat = () => {
             websocket.close();
         };
 
-    }, [window.WS_URL]);
+    }, [token]);
 
     useEffect(() => {
         scrollToBottom();

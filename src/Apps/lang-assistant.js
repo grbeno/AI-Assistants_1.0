@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import React, {useEffect, useState, useRef, useContext} from 'react';
-import { jwtDecode } from "jwt-decode";
 import {expirationTime, convertTimestampToDate} from '../utils';
 import axiosInstance from '../axios';
 import '../Style/Lang.css';
@@ -35,9 +34,6 @@ function Chat() {
 
     const expirationTimeRefAccess = useRef(expirationTime('access_token'));
     const expirationTimeRefRefresh = useRef(expirationTime('refresh_token'));
-
-    var jwtoken = localStorage.getItem('access_token');
-    const user = jwtoken ? jwtDecode(jwtoken) : '';
 
     // path
     const path =  window.BACKEND_URL + '/api/chat/';
