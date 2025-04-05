@@ -71,7 +71,8 @@ function Chat() {
             // get answer
             axiosInstance.get(path)
             .then((res) => {
-                setResponse(res.data);
+                const { chat } = res.data;
+                setResponse(chat);
             })  
             .catch((error) => {
                 console.log(error);
