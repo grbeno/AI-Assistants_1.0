@@ -19,6 +19,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     """ Custom TokenObtainPairSerializer to include custom claims in the token -> get the username in the token """
     @classmethod
     def get_token(cls, user):
+        from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
         token = super().get_token(user)
 
         # Add custom claims
