@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef, useContext} from 'react';
+import { jwtDecode } from "jwt-decode";
 import {expirationTime, convertTimestampToDate} from '../utils';
 import axiosInstance from '../axios';
 import '../Style/Lang.css';
+import { LangContext } from '../LangContext';
 
 
 // options for select - prompt modes
@@ -20,21 +22,22 @@ const models = [
     "gpt-4o",   
 ];
 
-export default function Chat() {
+function Chat() {
 
     // token and user
     var token = localStorage.getItem('access_token'); 
-
-    // data
-    const [response, setResponse] = useState([]);
+    const {response, setResponse } = useContext(LangContext);
     const [formData, setFormData] = useState({ prompt: '', });
     const [selectedOption, setSelectedOption] = useState('Correct grammatical errors');
-    const [selectedModel, setSelectedModel] = useState('gpt-4o-mini');  // default: gpt-3.5-turbo
+    const [selectedModel, setSelectedModel] = useState('gpt-4o-mini');  // default
     const [isLoading, setIsLoading] = useState(false);
     const [fadeIn, setFadeIn] = useState(false);
 
     const expirationTimeRefAccess = useRef(expirationTime('access_token'));
     const expirationTimeRefRefresh = useRef(expirationTime('refresh_token'));
+
+    var jwtoken = localStorage.getItem('access_token');
+    const user = jwtoken ? jwtDecode(jwtoken) : '';
 
     // path
     const path =  window.BACKEND_URL + '/api/chat/';
@@ -56,7 +59,6 @@ export default function Chat() {
             answer: formData.answer
         })
         .then((res) => {
-            // console.log(res);
             setFormData({ prompt: '', });
             console.log('Selected option: ' + selectedOption);
             setSelectedOption('Correct grammatical errors');
@@ -83,20 +85,6 @@ export default function Chat() {
             console.log(error);
         });
     };
-    
-    // useEffect for getting data
-    useEffect(() => {
-        // get answer
-        console.log(path); // test
-        
-        axiosInstance.get(path)
-        .then((res) => {
-            setResponse(res.data);
-        })  
-        .catch((error) => {
-            console.log(error);
-        });
-    }, [path]);
 
     // useEffect for tokens
     useEffect(() => {
@@ -171,7 +159,7 @@ export default function Chat() {
                 From translation to text correction, this tool helps people in languages such as English, German, Hungarian, and Latin.
                 My goal with the language assistant is to create a basic self-learning tool and evolve as the models develop.
             </div>
-            
+
             {/* 1. Form */}
             {/* 1.1 Select GPT model */}
             <form className="p-md-2 mb-4 mt-4 justify-content-center" onSubmit={postPrompt}>
@@ -249,3 +237,5 @@ export default function Chat() {
         </>
     );
 }
+
+export default Chat;

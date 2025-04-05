@@ -36,7 +36,13 @@ const WebSocketChat = () => {
 
     // Initialize WebSocket connection
     useEffect(() => {
-        const websocket = new WebSocket(window.WS_URL + '/ws/chat/');
+
+        // Close the existing WebSocket connection if it exists
+        if (socketRef.current) {
+            socketRef.current.close();
+        }
+
+        const websocket = new WebSocket(`${window.WS_URL}/ws/chat/?token=${token}`);
         socketRef.current = websocket;
 
         websocket.onopen = () => {
@@ -65,7 +71,7 @@ const WebSocketChat = () => {
             websocket.close();
         };
 
-    }, []);
+    }, [window.WS_URL]);
 
     useEffect(() => {
         scrollToBottom();

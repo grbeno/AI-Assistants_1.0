@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Chat
 from .serializers import ChatSerializer
 from .assistant import Assistant
+from accounts.models import OpenAITokens
 
 
 # Django home page
@@ -45,17 +46,31 @@ class ChatAI(APIView):
 	permission_classes = [IsAuthenticated]
 	
 	def get(self, request):
-		detail = Chat.objects.filter(user=request.user.id)
-		serializer = ChatSerializer(detail, many=True)
-		return Response(serializer.data)
+		chat = Chat.objects.filter(user=request.user.id)
+		chat_serializer = ChatSerializer(chat, many=True)
+		tokens = OpenAITokens.objects.filter(user=request.user.id)
+		# Calculate total tokens ( input + output )
+		total_tokens = sum(token.input_token for token in tokens) + sum(token.output_token for token in tokens)
+		#print(f"Total tokens: {total_tokens}")  # test
+		# Calculate price based on token usage
+		price_input_tokens = sum(token.input_token for token in tokens if token.model == "gpt-4o") / 1000000 * 2.50 + sum(token.input_token for token in tokens if token.model == "gpt-4o-mini") / 1000000 * 0.15
+		price_output_tokens = sum(token.output_token for token in tokens if token.model == "gpt-4o") / 1000000 * 10 + sum(token.output_token for token in tokens if token.model == "gpt-4o-mini") / 1000000 * 0.60
+		price_tokens = round(price_input_tokens + price_output_tokens, 3)
+		# print(f"Price tokens: {price_tokens}")  # test
+		
+		return Response({
+			'chat': chat_serializer.data,
+			'token': total_tokens,
+			'price': price_tokens,
+		})
 	
 	def post(self, request):
 		return Assistant(request).get_chat()
 		
 	def delete(self, request, pk):
 		try:
-			detail = Chat.objects.get(pk=pk)
-			detail.delete()
+			chat = Chat.objects.get(pk=pk)
+			chat.delete()
 			return Response({'message': 'Item deleted successfully.'})
 		except Chat.DoesNotExist:
 			return Response({'error': 'Item not found.'})

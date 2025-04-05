@@ -2,10 +2,8 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from django_rest_passwordreset.serializers import PasswordTokenSerializer, EmailSerializer
 
-from accounts.models import CustomUser as User
-
+from accounts.models import OpenAITokens, CustomUser as User
 
 # User model serializers
 
@@ -90,4 +88,10 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
         instance.set_password(validated_data['new_password1'])
         instance.save()
         return instance
+
+# OpenAITokens model serializers
+class OpenAITokensSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OpenAITokens
+        fields = '__all__'
     

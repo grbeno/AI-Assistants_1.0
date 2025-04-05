@@ -4,15 +4,18 @@ import { jwtDecode } from "jwt-decode";
 import './Style/App.css';
 import {expirationTime} from './utils';
 import AuthContext from './Auth/AuthContext';
+import LangContext from './LangContext';
 import axiosInstance from './axios';
 import withAuth from './LoginRequired';
 import LangImage from './images/computer-4.png';
 import CodeImage from './images/computer-1.png';
 import ChatImage from './images/screen.png';
 
+
 const App = () => {
 
   const {deleteUser} = useContext(AuthContext);
+  const { openAIToken, price } = useContext(LangContext);
   
   // token
   var token = localStorage.getItem('access_token');
@@ -83,6 +86,7 @@ const App = () => {
       <div className="d-flex justify-content-center">
         <div className="col-12 col-xl-6 text-light">
           <div className="content-list">
+              <div>User {user.username} used: {openAIToken} I/O tokens. Approx.: {price} $</div>
               <div>Access Token Expiration Time: {expirationTimeRefAccess.current}</div>
               <div>Refresh Token Expiration Time: {expirationTimeRefRefresh.current}</div>
               <div style={{background: 'black', color: '#eaffeb', fontSize: '1em'}}>

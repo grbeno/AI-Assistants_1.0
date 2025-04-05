@@ -12,6 +12,7 @@ import ResetSuccess from './Auth/ResetSuccess';
 import Chat from './Apps/lang-assistant';
 import Coder from './Apps/coder-assistant';
 import WebSocketChat from './Apps/Chat';
+import { LangData } from './LangContext';
 
 
 const Provider = () => {
@@ -19,19 +20,21 @@ const Provider = () => {
         <>
         <Router>
             <AuthProvider>
-                <Header />
-                    <Routes>
-                        <Route path="/api/password_reset/confirm/email/:token" element={<SetNew />}/>
-                        <Route path="/login" element={<Login />}/>
-                        <Route path="/signup" element={<Signup />}/>
-                        <Route path="/change" element={<ChangePassword />}/>
-                        <Route path="/reset" element={<ResetPassword />}/>
-                        <Route path="/success" element={<ResetSuccess />}/>
-                        <Route path="/lang-assistant" element={<Chat />}/>
-                        <Route path="/coder-assistant" element={<Coder />}/>
-                        <Route path="/ws/chat/" element={<WebSocketChat />} />
-                        <Route path="/" element={<App />}/>
-                    </Routes>
+            <LangData>
+            <Header />
+                <Routes>
+                    <Route path="/api/password_reset/confirm/email/:token" element={<SetNew />}/>
+                    <Route path="/login" element={<Login />}/>
+                    <Route path="/signup" element={<Signup />}/>
+                    <Route path="/change" element={<ChangePassword />}/>
+                    <Route path="/reset" element={<ResetPassword />}/>
+                    <Route path="/success" element={<ResetSuccess />}/>
+                    <Route path="/lang-assistant" element={<Chat />}/>
+                    <Route path="/coder-assistant" element={<Coder />}/>
+                    <Route path="/ws/chat/" element={<WebSocketChat />} />
+                    <Route path="/" element={<App />}/>
+                </Routes>
+            </LangData>
             </AuthProvider>
         </Router>
         </>

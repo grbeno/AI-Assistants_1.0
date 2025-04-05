@@ -6,9 +6,8 @@ import axiosInstance from '../axios';
 
 
 const Header = () => {
-
     const {logout} = useContext(AuthContext)
-    const token = localStorage.getItem('access_token');
+    const jwtoken = localStorage.getItem('access_token');
     const [superuser, setSuperuser] = useState(false);
 
     const handleLogout = () => {
@@ -33,7 +32,7 @@ const Header = () => {
             <nav className="navbar navbar-expand-md m-0 border-bottom shadow-sm" >
                 <a className="menu-link navbar-brand mr-auto px-4 text-light" href='/'><span data-toggle="tooltip" title="home"><i className="fa-solid fa-house"></i></span></a>
                 <>
-                {token ? (
+                {jwtoken ? (
                     <span className="offbutton d-block h5 m-4 text-light" onClick={handleLogout}><span data-toggle="tooltip" title="logout"><i className="fa-solid fa-power-off"></i></span></span>
                 ) : (
                     <div>
@@ -41,7 +40,7 @@ const Header = () => {
                     </div>
                 )}
                 </>
-                {superuser && process.env.REACT_APP_URL==='http://localhost:8000' && <a className="d-none d-md-block h5 m-4 text-light" href="http://localhost:8000/admin/"><span data-toggle="tooltip" title="django-admin"><i className="top-icon fa-solid fa-id-card-clip"></i></span></a>}
+                {superuser && window.BACKEND_URL==='http://localhost:8000' && <a className="d-none d-md-block h5 m-4 text-light" href="http://localhost:8000/no4uh/"><span data-toggle="tooltip" title="django-admin"><i className="top-icon fa-solid fa-id-card-clip"></i></span></a>}
             </nav>
         </header>
     )

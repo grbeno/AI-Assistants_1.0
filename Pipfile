@@ -31,6 +31,7 @@ channels-redis = "*"
 twisted = {extras = ["http2", "tls"], version = "*"}
 celery = "*"
 django-celery-beat = "*"
+tiktoken = "*"
 
 [dev-packages]
 
