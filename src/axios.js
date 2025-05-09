@@ -45,7 +45,7 @@ const tokenFlags = {
 axiosInstance.interceptors.response.use(
     response => response,
     error => {
-        const originalRequest = error.config.url;
+        const originalRequest = error.config;
 
         // debug
         console.log('originalRequest: ' + error.config);
