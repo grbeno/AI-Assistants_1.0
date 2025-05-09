@@ -102,6 +102,10 @@ axiosInstance.interceptors.response.use(
 
                         axiosInstance.defaults.headers['Authorization'] = 
                             'JWT ' + response.data.access;
+                        
+                        if (!originalRequest.headers) {
+                            originalRequest.headers = {};
+                        }
                         originalRequest.headers['Authorization'] = 
                             'JWT ' + response.data.access;
 
