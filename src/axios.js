@@ -28,7 +28,7 @@ const removeTokens = (error) => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     delete axiosInstance.defaults.headers['Authorization'];
-    window.location.href = baseURL + 'login/';
+    window.location.href = baseURL + '/login/';
     return Promise.reject(error); 
 };
 
@@ -55,7 +55,7 @@ axiosInstance.interceptors.response.use(
         // 401 = unauthorized
         if (error.response.status === 401 && originalRequest.url === baseURL + 'api/token/refresh/') {
             console.log('prevent loop - error 401');
-            window.location.href = baseURL + 'login/';
+            window.location.href = baseURL + '/login/';
             return Promise.reject(error);  // Prevent infinite loops
         }
 
