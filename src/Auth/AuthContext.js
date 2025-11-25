@@ -1,11 +1,14 @@
 import React, { createContext } from "react";
 import axiosInstance from "../axios";
+import axios from 'axios';
 import { handleErrorMessages } from "../utils";
 import { useNavigate } from "react-router-dom";
 
 
 export const AuthContext = createContext();
 export default AuthContext;
+
+const baseURL = window.BACKEND_URL;
 
 export const AuthProvider = ({children}) => {
 
@@ -97,7 +100,7 @@ export const AuthProvider = ({children}) => {
     // reset password
     const reset = (e, errorCallback, successCallback) => {
         e.preventDefault();
-        axiosInstance.post('api/password_reset/', {
+        axios.post(baseURL + '/api/password_reset/', {
             email: e.target.email.value,
         })
         .then((response) => {
