@@ -7,7 +7,7 @@ import {eyeOff} from 'react-icons-kit/feather/eyeOff';
 
 const SetNew = () => {
 
-    const {setNew} = useContext(AuthContext);
+    const {setnew} = useContext(AuthContext);
     const [token, setToken] = useState("");
     const [password1, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
@@ -49,7 +49,7 @@ const SetNew = () => {
             setIsLoading(false);
             return;
         }
-        setNew(e, (errorMessage) => {
+        setnew(e, (errorMessage) => {
             setError(errorMessage);
             setIsLoading(false);
         },
@@ -58,7 +58,14 @@ const SetNew = () => {
     };
     
     useEffect(() => {
-        setToken(window.location.href.split('/').pop());
+        let url = window.location.href.toString()
+        if (url.endsWith('/')) {
+            url = url.slice(0, -1);
+        }
+        //localStorage.setItem('reset_url', url);  // testing
+        let rs_token = url.split('/').pop()
+        //localStorage.setItem('reset_token', rs_token);  // testing
+        setToken(rs_token);
     }, [token]);
 
     return (
@@ -67,6 +74,7 @@ const SetNew = () => {
             <form className='auth-form' onSubmit={handleSetNew}>
             <fieldset>
                 <legend>Set new Password</legend>
+                <p className="text-light">Username:  <b>{token}</b></p>
                 <hr className='bg-light'/>
                 <div className='pt-2 position-relative'>
                     <input className='p-2 text-center rounded form-control' type={type1} onChange={(e) => setPassword(e.target.value)} value={password1} name="password1" placeholder="password"/>

@@ -23,7 +23,7 @@ const Provider = () => {
             <LangData>
             <Header />
                 <Routes>
-                    <Route path="/api/password_reset/confirm/email/:token" element={<SetNew />}/>
+                    <Route path="/api/password_reset/confirm/:token" element={<SetNew />}/>
                     <Route path="/login" element={<Login />}/>
                     <Route path="/signup" element={<Signup />}/>
                     <Route path="/change" element={<ChangePassword />}/>

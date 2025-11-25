@@ -19,7 +19,7 @@ urlpatterns = [
     # Password reset
     path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
     path('api/password_reset/validate_token/', include('django_rest_passwordreset.urls', namespace='password_reset_validate')),
-    # path('api/token_email/', GetEmail.as_view(), name='token_email'),
+    path('api/password_reset/confirm/<str:token>/', React.as_view(), name='password-reset-confirm'),
     
     # User model
     path('accounts/', include('accounts.urls')),
@@ -39,6 +39,7 @@ urlpatterns = [
     path('change/', React.as_view(), name='change-password'),
     path('success/', React.as_view(), name='success'),
     path('reset/', React.as_view(), name='reset-password'),
+    
     # app
     path('lang-assistant/', React.as_view(), name='dashboard'),
     path('ws/chat/', React.as_view(), name='profile'),

@@ -102,7 +102,7 @@ export const AuthProvider = ({children}) => {
         })
         .then((response) => {
             successCallback('Password reset email has been sent.');
-            console.log(response);
+            //console.log(response);
         })
         .catch((error) => {
             handleErrorMessages(error, errorCallback);
@@ -110,7 +110,7 @@ export const AuthProvider = ({children}) => {
     };
     
    // set new password
-    const setNew = (e, errorCallback, token) => {
+    const setnew = (e, errorCallback, token) => {
         e.preventDefault();
         
         axiosInstance.post('/api/password_reset/validate_token/', {
@@ -154,7 +154,7 @@ export const AuthProvider = ({children}) => {
         });
     };
 
-    const contextData = {signup, login, logout, change, reset, setNew, deleteUser};
+    const contextData = {signup, login, logout, change, reset, setnew, deleteUser};
       
     return (
         <>

@@ -108,6 +108,9 @@ __pypackages__/
 celerybeat-schedule
 celerybeat.pid
 
+# VS Code stuff
+.vscode/
+
 # SageMath parsed files
 *.sage.py
 
