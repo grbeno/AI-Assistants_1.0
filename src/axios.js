@@ -52,14 +52,7 @@ axiosInstance.interceptors.response.use(
         // console.log('error.config.url: ' + error.config.url);
         // console.log('error.response.status: ' + error.response.status);
 
-        // 401 = unauthorized
-        if (error.response.status === 401 && originalRequest.url === baseURL + '/api/token/refresh/') {
-            console.log('prevent loop - error 401');
-            window.location.href = baseURL + '/login/';
-            return Promise.reject(error);  // Prevent infinite loops
-        }
-
-        // undefined error occurred
+        // undefined error occurred - check this first
         if (typeof error.response === 'undefined') {
             alert(
                 'A server/network error occurred. ' + 
@@ -73,6 +66,13 @@ axiosInstance.interceptors.response.use(
                     window.location.reload();
                 }, 5000);
             });
+        }
+
+        // 401 = unauthorized
+        if (error.response.status === 401 && originalRequest.url === baseURL + '/api/token/refresh/') {
+            console.log('prevent loop - error 401');
+            window.location.href = baseURL + '/login/';
+            return Promise.reject(error);  // Prevent infinite loops
         }
 
         if (error.response.status === 401) {  
