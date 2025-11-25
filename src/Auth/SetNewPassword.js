@@ -74,7 +74,6 @@ const SetNew = () => {
             <form className='auth-form' onSubmit={handleSetNew}>
             <fieldset>
                 <legend>Set new Password</legend>
-                <p className="text-light">Username:  <b>{token}</b></p>
                 <hr className='bg-light'/>
                 <div className='pt-2 position-relative'>
                     <input className='p-2 text-center rounded form-control' type={type1} onChange={(e) => setPassword(e.target.value)} value={password1} name="password1" placeholder="password"/>

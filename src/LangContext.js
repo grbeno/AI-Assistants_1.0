@@ -17,13 +17,15 @@ export function LangData({children}) {
         // get answer
         axiosInstance.get(path)
         .then((res) => {
-            const { chat, token, price } = res.data;
-            setResponse(chat);
-            setOpenAIToken(token);
-            setPrice(price);
+            if (res && res.data) {
+                const { chat, token, price } = res.data;
+                setResponse(chat);
+                setOpenAIToken(token);
+                setPrice(price);
+            }
         })  
         .catch((error) => {
-            console.log(error);
+            console.log('Error fetching chat data:', error);
         });
     }, [path]);
 
