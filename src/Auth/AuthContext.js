@@ -7,8 +7,6 @@ import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
 export default AuthContext;
 
-const baseURL = window.BACKEND_URL;
-
 export const AuthProvider = ({children}) => {
 
     const navigate = useNavigate();
