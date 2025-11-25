@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext } from 'react';
-import axiosInstance from './axios';
+//import axiosInstance from './axios';
+import axios from 'axios';
 
 export const LangContext = createContext();
 export default LangContext;
@@ -15,7 +16,7 @@ export function LangData({children}) {
     // useEffect for getting data
     useEffect(() => {
         // get answer
-        axiosInstance.get(path)
+        axios.get(path)
         .then((res) => {
             if (res && res.data) {
                 const { chat, token, price } = res.data;
