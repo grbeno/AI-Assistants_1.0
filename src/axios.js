@@ -48,9 +48,9 @@ axiosInstance.interceptors.response.use(
         const originalRequest = error.config;
 
         // debug
-        console.log('originalRequest: ' + error.config);
-        console.log('error.config.url: ' + error.config.url);
-        console.log('error.response.status: ' + error.response.status);
+        // console.log('originalRequest: ' + error.config);
+        // console.log('error.config.url: ' + error.config.url);
+        // console.log('error.response.status: ' + error.response.status);
 
         // 401 = unauthorized
         if (error.response.status === 401 && originalRequest.url === baseURL + '/api/token/refresh/') {
