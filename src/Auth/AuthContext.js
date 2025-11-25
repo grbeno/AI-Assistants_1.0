@@ -99,7 +99,7 @@ export const AuthProvider = ({children}) => {
     // reset password
     const reset = (e, errorCallback, successCallback) => {
         e.preventDefault();
-        axiosInstance.post('/api/password_reset/', {
+        axiosInstance.post('api/password_reset/', {
             email: e.target.email.value,
         })
         .then((response) => {
