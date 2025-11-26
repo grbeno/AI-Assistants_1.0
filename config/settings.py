@@ -224,9 +224,9 @@ SIMPLE_JWT = {
 
 EMAIL_BACKEND = env.str('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
 EMAIL_HOST = env.str('EMAIL_HOST', default='mail.privateemail.com')
+EMAIL_PORT = env.int('EMAIL_PORT', default=587)
 EMAIL_HOST_USER = env.str('EMAIL_USER', default='')
 EMAIL_HOST_PASSWORD = env.str('EMAIL_PASSWORD', default='')
-EMAIL_PORT = env.int('EMAIL_PORT', default=587)
 EMAIL_USE_TLS = True
 
 # DRF Password Reset

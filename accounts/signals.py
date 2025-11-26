@@ -2,10 +2,13 @@ from django.core.mail import EmailMultiAlternatives
 from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django.urls import reverse
+import logging
 
 from django_rest_passwordreset.signals import reset_password_token_created
 
 from config.settings import DEBUG
+
+logger = logging.getLogger(__name__)
 
 
 @receiver(reset_password_token_created)
@@ -35,9 +38,9 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     email_html_message = render_to_string('email/user_reset_password.html', context)
     email_plaintext_message = render_to_string('email/user_reset_password.txt', context)
 
-    sent_from = "szaktan-dev@szaktanweb.com"
+    sent_from = "szaktan-dev@szaktanweb.com" 
     # if DEBUG:
-    #     sent_from = "smtp://127.0.0.1:1025" 
+    #     sent_from = "smtp://127.0.0.1:1025"  # for local testing with console email backend
     
     msg = EmailMultiAlternatives(
         # title:
@@ -50,4 +53,12 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
         [reset_password_token.user.email]
     )
     msg.attach_alternative(email_html_message, "text/html")
-    msg.send()
+    
+    try:
+        msg.send()
+    except Exception as e:
+        logger.error(f"Failed to send password reset email: {e}")
+        if DEBUG:
+            print(f"Password reset token for {reset_password_token.user.email}: {reset_password_token.key}")
+            print(f"Reset URL: {context['reset_password_url']}")
+
