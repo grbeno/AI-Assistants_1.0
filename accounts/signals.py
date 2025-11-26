@@ -2,14 +2,12 @@ from django.core.mail import EmailMultiAlternatives
 from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django.urls import reverse
-import logging
-
 from django_rest_passwordreset.signals import reset_password_token_created
+import logging
+from config.settings import DEBUG, EMAIL_HOST, EMAIL_PORT
 
-from config.settings import DEBUG
 
 logger = logging.getLogger(__name__)
-
 
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
@@ -39,8 +37,8 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     email_plaintext_message = render_to_string('email/user_reset_password.txt', context)
 
     sent_from = "szaktan-dev@szaktanweb.com" 
-    # if DEBUG:
-    #     sent_from = "smtp://127.0.0.1:1025"  # for local testing with console email backend
+    if DEBUG:
+        sent_from = f"smtp://{EMAIL_HOST}:{EMAIL_PORT}"  # for local testing with console email backend
     
     msg = EmailMultiAlternatives(
         # title:
