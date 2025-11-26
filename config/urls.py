@@ -19,7 +19,7 @@ urlpatterns = [
     # Password reset
     path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
     path('api/password_reset/validate_token/', include('django_rest_passwordreset.urls', namespace='password_reset_validate')),
-    path('api/password_reset/confirm/<str:token>/', React.as_view(), name='password-reset-confirm'),
+    path('api/password_reset/confirm/<str:token>', React.as_view(), name='password-reset-confirm'),
 
     # User model
     path('accounts/', include('accounts.urls')),
