@@ -157,6 +157,8 @@ CORS_ORIGIN_WHITELIST = (
     f'https://{DOMAIN_NAME}' if DOMAIN_NAME != '' else 'http://localhost:8000',
 )
 
+CORS_ALLOW_CREDENTIALS = True
+
 if DOMAIN_NAME != '':
     CSRF_TRUSTED_ORIGINS = [f'https://{DOMAIN_NAME}', ] # railway
 

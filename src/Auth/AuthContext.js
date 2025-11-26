@@ -97,14 +97,16 @@ export const AuthProvider = ({children}) => {
     // reset password
     const reset = (e, errorCallback, successCallback) => {
         e.preventDefault();
+        console.log('Submitting password reset for:', e.target.email.value);
         axiosInstance.post('api/password_reset/', {
             email: e.target.email.value,
         })
         .then((response) => {
+            console.log('Password reset response:', response);
             successCallback('Password reset email has been sent.');
-            //console.log(response);
         })
         .catch((error) => {
+            console.error('Password reset error:', error);
             handleErrorMessages(error, errorCallback);
         });
     };

@@ -41,9 +41,8 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     email_html_message = render_to_string('email/user_reset_password.html', context)
     email_plaintext_message = render_to_string('email/user_reset_password.txt', context)
 
-    sent_from = EMAIL_HOST_USER
-    if DEBUG:
-        sent_from = f"smtp://{EMAIL_HOST}:{EMAIL_PORT}"  # for local testing with console email backend
+    # Use valid email address - fallback to default if EMAIL_HOST_USER not set
+    sent_from = EMAIL_HOST_USER if EMAIL_HOST_USER else "szaktan-dev@szaktanweb.com"
     
     msg = EmailMultiAlternatives(
         # title:
@@ -59,9 +58,12 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     
     try:
         msg.send()
+        logger.info(f"Password reset email sent to {reset_password_token.user.email}")
     except Exception as e:
         logger.error(f"Failed to send password reset email: {e}")
         if DEBUG:
             print(f"Password reset token for {reset_password_token.user.email}: {reset_password_token.key}")
             print(f"Reset URL: {context['reset_password_url']}")
+        # Don't re-raise exception - allow the password reset request to succeed
+        # The user can still use the token if they have it from logs
 
