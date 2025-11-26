@@ -21,19 +21,14 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     :return:
     """
     # send an e-mail to the user
-    # Generate frontend URL that matches React route
-    scheme = instance.request.scheme
-    host = instance.request.get_host()
-    
     context = {
         'current_user': reset_password_token.user,
         'username': reset_password_token.user.username,
         'email': reset_password_token.user.email,
-        'reset_password_url': "{}://{}/api/password_reset/confirm/{}".format(
-            scheme,
-            host,
-            reset_password_token.key
-        )
+        'reset_password_url': 
+         "{}{}".format(
+             instance.request.build_absolute_uri(reverse('password_reset:reset-password-confirm')),
+             reset_password_token.key)
     }
     
     # render email text
@@ -41,8 +36,8 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     email_plaintext_message = render_to_string('email/user_reset_password.txt', context)
 
     sent_from = "szaktan-dev@szaktanweb.com"
-    if DEBUG:
-        sent_from = "smtp://127.0.0.1:1025" 
+    # if DEBUG:
+    #     sent_from = "smtp://127.0.0.1:1025" 
     
     msg = EmailMultiAlternatives(
         # title:
