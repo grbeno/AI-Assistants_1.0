@@ -4,10 +4,22 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django_rest_passwordreset.signals import reset_password_token_created
 import logging
-from config.settings import DEBUG, EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER
+import threading
+from config.settings import DEBUG, EMAIL_HOST_USER
 
 
 logger = logging.getLogger(__name__)
+
+def send_email_async(msg, user_email, reset_url):
+    """Send email in a separate thread to avoid blocking the HTTP response"""
+    try:
+        msg.send()
+        logger.info(f"Password reset email sent to {user_email}")
+    except Exception as e:
+        logger.error(f"Failed to send password reset email to {user_email}: {e}")
+        if DEBUG:
+            print(f"Password reset token for {user_email}")
+            print(f"Reset URL: {reset_url}")
 
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
@@ -56,14 +68,13 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     )
     msg.attach_alternative(email_html_message, "text/html")
     
-    try:
-        msg.send()
-        logger.info(f"Password reset email sent to {reset_password_token.user.email}")
-    except Exception as e:
-        logger.error(f"Failed to send password reset email: {e}")
-        if DEBUG:
-            print(f"Password reset token for {reset_password_token.user.email}: {reset_password_token.key}")
-            print(f"Reset URL: {context['reset_password_url']}")
-        # Don't re-raise exception - allow the password reset request to succeed
-        # The user can still use the token if they have it from logs
+    # Send email asynchronously in a separate thread to avoid blocking HTTP response
+    thread = threading.Thread(
+        target=send_email_async,
+        args=(msg, reset_password_token.user.email, context['reset_password_url'])
+    )
+    thread.daemon = True
+    thread.start()
+    
+    logger.info(f"Password reset email queued for {reset_password_token.user.email}")
 
