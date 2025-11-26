@@ -13,12 +13,13 @@ urlpatterns = [
     
     path('no4uh/', admin.site.urls),
     
-    # App
-    path("", include("app.urls")),
-
     # Password reset
     path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
     path('api/password_reset/validate_token/', include('django_rest_passwordreset.urls', namespace='password_reset_validate')),
+    path('api/password_reset/confirm/<str:token>/', React.as_view(), name='password-reset-confirm'),
+    
+    # App
+    path("", include("app.urls")),
 
     # User model
     path('accounts/', include('accounts.urls')),
@@ -38,8 +39,6 @@ urlpatterns = [
     path('change/', React.as_view(), name='change-password'),
     path('success/', React.as_view(), name='success'),
     path('reset/', React.as_view(), name='reset-password'),
-
-    path('api/password_reset/confirm/<str:token>/', React.as_view(), name='password-reset-confirm'),
         
     # app
     path('lang-assistant/', React.as_view(), name='dashboard'),
