@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django_rest_passwordreset.signals import reset_password_token_created
 import logging
-from config.settings import DEBUG, EMAIL_HOST, EMAIL_PORT
+from config.settings import DEBUG, EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER
 
 
 logger = logging.getLogger(__name__)
@@ -22,21 +22,26 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     :return:
     """
     # send an e-mail to the user
+    # Generate frontend URL that matches React route
+    scheme = instance.request.scheme
+    host = instance.request.get_host()
+    
     context = {
         'current_user': reset_password_token.user,
         'username': reset_password_token.user.username,
         'email': reset_password_token.user.email,
-        'reset_password_url': 
-         "{}{}".format(
-             instance.request.build_absolute_uri(reverse('password_reset:reset-password-confirm')),
-             reset_password_token.key)
+        'reset_password_url': "{}://{}/api/password_reset/confirm/{}".format(
+            scheme,
+            host,
+            reset_password_token.key
+        )
     }
     
     # render email text
     email_html_message = render_to_string('email/user_reset_password.html', context)
     email_plaintext_message = render_to_string('email/user_reset_password.txt', context)
 
-    sent_from = "szaktan-dev@szaktanweb.com" 
+    sent_from = EMAIL_HOST_USER
     if DEBUG:
         sent_from = f"smtp://{EMAIL_HOST}:{EMAIL_PORT}"  # for local testing with console email backend
     
