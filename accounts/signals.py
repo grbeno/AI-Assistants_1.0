@@ -10,15 +10,18 @@ from config.settings import DEBUG, EMAIL_HOST_USER
 
 logger = logging.getLogger(__name__)
 
-def send_email_async(msg, user_email, reset_url):
+def send_email_async(msg, user_email, reset_url, sent_from):
     """Send email in a separate thread to avoid blocking the HTTP response"""
     try:
+        logger.info(f"Attempting to send email from {sent_from} to {user_email}")
         msg.send()
-        logger.info(f"Password reset email sent to {user_email}")
+        logger.info(f"Password reset email successfully sent to {user_email}")
     except Exception as e:
-        logger.error(f"Failed to send password reset email to {user_email}: {e}")
+        logger.error(f"Failed to send password reset email to {user_email}: {str(e)}")
+        logger.error(f"Sender: {sent_from}, Reset URL: {reset_url}")
         if DEBUG:
-            print(f"Password reset token for {user_email}")
+            print(f"ERROR: Failed to send email to {user_email}")
+            print(f"Error details: {str(e)}")
             print(f"Reset URL: {reset_url}")
 
 @receiver(reset_password_token_created)
@@ -53,8 +56,9 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     email_html_message = render_to_string('email/user_reset_password.html', context)
     email_plaintext_message = render_to_string('email/user_reset_password.txt', context)
 
-    # Use valid email address - fallback to default if EMAIL_HOST_USER not set
+    # Use valid email address
     sent_from = EMAIL_HOST_USER if EMAIL_HOST_USER else "szaktan-dev@szaktanweb.com"
+    # sent_from = "127.0.0.1:25"  # for local testing with console email backend
     
     msg = EmailMultiAlternatives(
         # title:
@@ -71,10 +75,10 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     # Send email asynchronously in a separate thread to avoid blocking HTTP response
     thread = threading.Thread(
         target=send_email_async,
-        args=(msg, reset_password_token.user.email, context['reset_password_url'])
+        args=(msg, reset_password_token.user.email, context['reset_password_url'], sent_from)
     )
     thread.daemon = True
     thread.start()
     
-    logger.info(f"Password reset email queued for {reset_password_token.user.email}")
+    logger.info(f"Password reset email queued for {reset_password_token.user.email} from {sent_from}")
 
