@@ -157,7 +157,7 @@ CORS_ORIGIN_WHITELIST = (
     f'https://{DOMAIN_NAME}' if DOMAIN_NAME != '' else 'http://localhost:8000',
 )
 
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_CREDENTIALS = True
 
 if DOMAIN_NAME != '':
     CSRF_TRUSTED_ORIGINS = [f'https://{DOMAIN_NAME}', ] # railway
@@ -212,12 +212,14 @@ SIMPLE_JWT = {
 
 # Email
 
-EMAIL_BACKEND = env.str('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
-EMAIL_HOST = env.str('EMAIL_HOST', default='mail.privateemail.com')
-EMAIL_PORT = env.int('EMAIL_PORT', default=587)
-EMAIL_HOST_USER = env.str('EMAIL_USER', default='')
-EMAIL_HOST_PASSWORD = env.str('EMAIL_PASSWORD', default='')
-EMAIL_USE_TLS = True
+if DEBUG: # because railway does not support SMTP on hobby plan
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    EMAIL_BACKEND = env.str('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+    EMAIL_HOST = env.str('EMAIL_HOST', default='mail.privateemail.com')
+    EMAIL_PORT = env.int('EMAIL_PORT', default=587)
+    EMAIL_HOST_USER = env.str('EMAIL_USER', default='')
+    EMAIL_HOST_PASSWORD = env.str('EMAIL_PASSWORD', default='')
+    EMAIL_USE_TLS = True
 
 # DRF Password Reset
 

@@ -32,6 +32,7 @@ twisted = {extras = ["http2", "tls"], version = "*"}
 celery = "*"
 django-celery-beat = "*"
 tiktoken = "*"
+resend = "*"
 
 [dev-packages]
 

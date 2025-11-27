@@ -5,7 +5,8 @@ from django.urls import reverse
 from django_rest_passwordreset.signals import reset_password_token_created
 import logging
 import threading
-from config.settings import DEBUG, EMAIL_HOST_USER
+import resend
+from config.settings import DEBUG, env
 
 
 logger = logging.getLogger(__name__)
@@ -57,20 +58,31 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     email_plaintext_message = render_to_string('email/user_reset_password.txt', context)
 
     # Use valid email address
-    sent_from = EMAIL_HOST_USER if EMAIL_HOST_USER else "szaktan-dev@szaktanweb.com"
+    sent_from = env.str("EMAIL_USER")
     # sent_from = "127.0.0.1:25"  # for local testing with console email backend
     
-    msg = EmailMultiAlternatives(
-        # title:
-        "Password Reset for {title}".format(title="AI-Assistants Web App"),
-        # message:
-        email_plaintext_message,
-        # from:
-        sent_from,
-        # to:
-        [reset_password_token.user.email]
-    )
-    msg.attach_alternative(email_html_message, "text/html")
+    # Send email with SMTP
+    if DEBUG:
+        msg = EmailMultiAlternatives(
+            # title:
+            "Password Reset for {title}".format(title="AI-Assistants Web App"),
+            # message:
+            email_plaintext_message,
+            # from:
+            sent_from,
+            # to:
+            [reset_password_token.user.email]
+        )
+        msg.attach_alternative(email_html_message, "text/html")
+    else:
+        # Send email with https - Resend API
+        resend.api_key = env.str("RESEND_API_KEY")
+        msg = resend.Emails.send({
+            "from": sent_from,
+            "to": [reset_password_token.user.email],
+            "subject": "Password Reset for {title}".format(title="AI-Assistants Web App"),
+            "html": email_html_message
+        })
     
     # Send email asynchronously in a separate thread to avoid blocking HTTP response
     thread = threading.Thread(
